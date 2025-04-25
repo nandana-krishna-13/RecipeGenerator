@@ -264,3 +264,69 @@ img{
     transform: translateY(0px);
   }
 }
+
+/* Featured Recipes Section */
+.featured {
+  background-color: #121212;
+  padding: 3rem 1rem;
+  color: var(--white-color);
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--first-color-dark);
+}
+
+.featured__cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  width: 280px;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(255, 204, 92, 0.7);
+}
+
+.card__img {
+  border-radius: 10px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--first-color-dark);
+}
+
+.card__description {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Button hover enhancement */
+.home__button {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.home__button:hover {
+  background-color: var(--first-color-darken);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
+}

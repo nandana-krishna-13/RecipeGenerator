@@ -36,3 +36,16 @@ gsap.from('.home__title', {opacity: 0, duration: 1, delay:1.6, y: 30})
 gsap.from('.home__description', {opacity: 0, duration: 1, delay:1.8, y: 30})
 gsap.from('.home__button', {opacity: 0, duration: 1, delay:2.1, y: 30})
 gsap.from('.home__img', {opacity: 0, duration: 1, delay:1.3, y: 30})
+
+// FEATURED RECIPES
+gsap.from('.section-title', {opacity: 0, duration: 1, delay: 2.5, y: 30})
+gsap.from('.card', {opacity: 0, duration: 1, delay: 2.7, y: 30, stagger: 0.3})
+
+// BUTTON HOVER ANIMATION
+const button = document.querySelector('.home__button');
+button.addEventListener('mouseenter', () => {
+    gsap.to(button, {scale: 1.1, duration: 0.3, ease: "power1.out"});
+});
+button.addEventListener('mouseleave', () => {
+    gsap.to(button, {scale: 1, duration: 0.3, ease: "power1.out"});
+});
