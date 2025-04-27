@@ -35,8 +35,17 @@
                         <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                     </ul>
                 </div>
-            </nav>
+                <div class="nav__login">
+                    <button id="loginButton" class="login-button">Login/Signup</button>
         </header>
+        <!-- Add this somewhere in your HTML body -->
+<button class="get-started-button">
+            Get Started
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style="margin-left: 8px;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          
 
         <main class="l-main">
             <!--===== HOME =====-->
@@ -52,7 +61,7 @@
                     <div class="home__data">
                         <h1 class="home__title">Craving<br> Something?</h1>
                         <p class="home__description">Unlock delicious possibilities — <br> create unique recipes with just the ingredients you have! </p>
-                        <a href="#" class="home__button">Get Started</a>
+<a href="#" class="home__button">Get Started</a>
                     </div>
                 </div>
             </section>
@@ -90,7 +99,29 @@
 
         <!--===== MAIN JS =====-->
         <script src="main.js"></script>
-    
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const mainButton = document.querySelector('.home__button');
+  const floatingButton = document.querySelector('.get-started-button');
+
+  // Initially hide the floating button
+  floatingButton.style.display = 'none';
+
+  window.addEventListener('scroll', function () {
+    const mainButtonPosition = mainButton.getBoundingClientRect().bottom;
+
+    if (mainButtonPosition < 0) {
+      // Show floating button when main button scrolls out of view
+      floatingButton.style.display = 'flex';
+    } else {
+      // Hide floating button when main button is still visible
+      floatingButton.style.display = 'none';
+    }
+  });
+});
+
+          
+        </script>
           
     </body>
 </html>

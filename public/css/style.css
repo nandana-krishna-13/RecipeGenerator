@@ -1,46 +1,28 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
+/* Styles for login button on home page, matching explore button style */
+.nav__login {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
 }
 
-.video-container {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.overlay-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  text-align: center;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4); /* optional dark overlay */
-  padding: 20px 30px;
-  border-radius: 10px;
-}
-
-.overlay-text h1 {
-  font-size: 3rem;
-  margin: 0;
-}
-
-.overlay-text p {
+.login-button {
+  margin-top: 15px;
+  padding: 14px 28px;
   font-size: 1.2rem;
-  margin-top: 10px;
+  background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+  background-size: 600% 600%;
+  color: var(--first-color);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.login-button:hover {
+  box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
+  transform: scale(1.05);
 }
