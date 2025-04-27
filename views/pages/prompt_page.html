@@ -4,117 +4,169 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generate Recipe - Plateful.ai</title>
-  <link rel="stylesheet" href="public/css/style.css" />
+  <link rel="stylesheet" href="../../home_page/styles.css" />
   <style>
     body {
-      background-color: #12121f;
+      background-color: var(--first-color);
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
-      color: #e0e0e0;
+      font-family: var(--body-font);
+      color: var(--white-color);
     }
     .page-wrapper {
       display: flex;
-      max-width: 1200px;
-      margin: 50px auto;
-      gap: 20px;
-      padding: 0 20px;
+      max-width: 1300px;
+      margin: 60px auto;
+      gap: 25px;
+      padding: 0 25px;
     }
     .side-container {
       flex: 1;
-      background-color: #201f1f;
+      background-color: #1e1e1e;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.7);
-      padding: 20px;
-      color: #c69749; /* yellow color from login */
-      font-family: 'Poppins', sans-serif;
-      max-height: 600px;
+      box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
+      padding: 25px;
+      color: var(--first-color-dark);
+      font-family: var(--body-font);
+      max-height: 650px;
       overflow-y: auto;
+      transition: box-shadow 0.4s ease;
+    }
+    .side-container:hover {
+      box-shadow: 0 10px 25px rgba(255, 204, 92, 0.7);
     }
     .side-container h2 {
       margin-top: 0;
       font-weight: 700;
-      color: #c69749; /* yellow color from login */
+      color: var(--first-color-dark);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      font-size: 1.7rem;
     }
     .side-container ul {
       list-style: none;
       padding-left: 0;
-      color: #e0e0e0;
-      margin-top: 10px;
+      color: var(--white-color);
+      margin-top: 12px;
     }
     .side-container ul li {
-      padding: 5px 0;
+      padding: 10px 14px;
       border-bottom: 1px solid #444;
+      cursor: pointer;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      border-radius: 6px;
+      font-size: 1.05rem;
+    }
+    .side-container ul li:hover {
+      background-color: var(--first-color-dark);
+      color: var(--first-color);
+      font-weight: 600;
     }
     .main-container {
       flex: 2.5;
-      background-color: #201f1f;
+      background-color: #1e1e1e;
       border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.7);
-      padding: 30px 40px;
-      color: #e0e0e0;
-      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
+      padding: 35px 50px;
+      color: var(--white-color);
+      font-family: var(--body-font);
       display: flex;
       flex-direction: column;
+      animation: fadeInUp 1s ease forwards;
     }
     .main-container h1 {
-      color: #c69749; /* yellow color from login */
+      color: var(--first-color-dark);
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       font-weight: 700;
+      font-size: 3rem;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 6px rgba(255, 204, 92, 0.7);
     }
     .prompt-form label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-weight: 600;
-      color: #c0c0c0;
+      color: #ccc;
+      font-size: 1.2rem;
     }
     .prompt-form textarea {
       width: 100%;
-      height: 130px;
-      padding: 12px;
-      font-size: 1rem;
+      height: 160px;
+      padding: 16px;
+      font-size: 1.2rem;
       border: 1px solid #444;
-      border-radius: 8px;
+      border-radius: 10px;
       resize: vertical;
-      font-family: 'Poppins', sans-serif;
-      background-color: #2a2a40;
-      color: #e0e0e0;
+      font-family: var(--body-font);
+      background-color: #121212;
+      color: var(--white-color);
+      box-shadow: inset 0 0 6px rgba(255, 204, 92, 0.2);
+      transition: box-shadow 0.4s ease;
     }
     .prompt-form textarea::placeholder {
       color: #888;
     }
+    .prompt-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--first-color-dark);
+      border-color: var(--first-color-dark);
+    }
     .prompt-form button {
-      margin-top: 20px;
+      margin-top: 25px;
       width: 100%;
-      padding: 14px;
-      font-size: 1.1rem;
-      background-color: #faeeb5;
-      color: #000000;
+      padding: 18px;
+      font-size: 1.3rem;
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--first-color);
       border: none;
-      border-radius: 8px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+      animation: none;
+      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
     }
     .prompt-form button:hover {
-      background-color: #ffffff;
+      box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
+      transform: scale(1.05);
     }
     .recipe-output {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #2a2a40;
+      margin-top: 35px;
+      padding: 30px;
+      background-color: #121212;
       border-radius: 10px;
       border: 1px solid #444;
-      color: #e0e0e0;
+      color: var(--white-color);
       white-space: pre-wrap;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
+      font-family: var(--body-font);
+      font-size: 1.2rem;
+      line-height: 1.7;
       flex-grow: 1;
+      box-shadow: 0 0 12px rgba(255, 204, 92, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      animation-fill-mode: forwards;
+      animation-duration: 0.7s;
+      animation-timing-function: ease;
+    }
+    .recipe-output.show {
+      opacity: 1;
+      transform: translateY(0);
+      animation-name: fadeInUp;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -186,6 +238,7 @@
         '3. Enjoy your meal!';
 
       output.style.display = 'block';
+      output.classList.add('show');
       output.textContent = generatedRecipe;
 
       // Save to history
