@@ -5,7 +5,7 @@
 
   /* Colors */
   --first-color: #000000;
-  --first-color-dark: #faeeb5;
+  --first-color-dark: #676767;
   --first-color-darken: #ffffff;
   --white-color: #C69749;
 
@@ -45,11 +45,15 @@ body {
   border-radius: 10px;
   overflow: hidden;
   background-color: #201f1f;
+  background-image: url('vintage-old-rustic-cutlery-dark.jpg');
+  background-size: cover;
+  background-position: left;
+  background-position: -200px;
+  background-repeat: no-repeat;
 }
 
 .login-left {
   flex: 1;
-  background: url('../public/images/fd_video.mp4') no-repeat center center/cover;
   position: relative;
   display: flex;
   justify-content: center;
@@ -73,8 +77,9 @@ body {
 }
 
 .overlay-text h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  margin-top: 5rem;
 }
 
 .overlay-text p {
