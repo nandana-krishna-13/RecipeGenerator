@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Cuisines</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: var(--first-color);
+      color: var(--white-color);
+      font-family: var(--body-font);
+      margin: 0;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      text-align: center;
+      color: var(--first-color-dark);
+      margin-bottom: 2rem;
+      font-size: 3rem;
+      font-weight: 600;
+    }
+    .cuisine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1024px;
+      margin: 0 auto;
+      perspective: 1500px;
+    }
+    .cuisine-card {
+      width: 100%;
+      height: 320px;
+      cursor: pointer;
+      perspective: 1500px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      background-color: #1e1e1e;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+    .cuisine-card:hover {
+      transform: translateY(-10px);
+    }
+    .cuisine-card:hover .card-inner {
+      box-shadow: 0 8px 16px var(--first-color-dark);
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      color: var(--white-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .card-front {
+      background-color: #1e1e1e;
+    }
+    .cuisine-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 3px solid var(--first-color-dark);
+      border-radius: 10px 10px 0 0;
+    }
+    .cuisine-title {
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+      color: var(--first-color-dark);
+      font-weight: 600;
+    }
+    .cuisine-description {
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+    .card-back {
+      background-color: #121212;
+      transform: rotateY(180deg);
+      padding-top: 1.5rem;
+      overflow-y: auto;
+      text-align: left;
+    }
+    .card-back h3 {
+      margin-bottom: 1rem;
+      color: var(--first-color-dark);
+      font-weight: 600;
+    }
+    .dish-list {
+      list-style: disc;
+      padding-left: 1.5rem;
+      color: #ccc;
+      font-size: 1rem;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Explore Cuisines</h1>
+  <div class="cuisine-grid">
+    <div class="cuisine-card" style="animation-delay: 0.1s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="Malabar.jpg" alt="Malabar Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Malabar (India)</h2>
+          <p class="cuisine-description">Known for its rich spices and coconut-based dishes, Malabar cuisine offers a unique blend of flavors from Kerala's coastal region.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Malabar Biryani</li>
+            <li>Pathiri</li>
+            <li>Fish Curry</li>
+            <li>Appam</li>
+            <li>Kerala Parotta</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.2s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="italian.jpeg" alt="Italian Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Italian</h2>
+          <p class="cuisine-description">Famous for pasta, pizza, and rich sauces, Italian cuisine emphasizes fresh ingredients and simple yet bold flavors.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Spaghetti Carbonara</li>
+            <li>Margherita Pizza</li>
+            <li>Lasagna</li>
+            <li>Tiramisu</li>
+            <li>Risotto</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.3s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="chinese.avif" alt="Chinese Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Chinese</h2>
+          <p class="cuisine-description">A diverse cuisine with regional variations, Chinese food is known for its balance of taste, texture, and color in every dish.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Kung Pao Chicken</li>
+            <li>Sweet and Sour Pork</li>
+            <li>Spring Rolls</li>
+            <li>Mapo Tofu</li>
+            <li>Fried Rice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.4s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="medi.jpg" alt="Mediterranean Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Mediterranean</h2>
+          <p class="cuisine-description">Rich in olive oil, fresh vegetables, and herbs, Mediterranean cuisine is celebrated for its health benefits and vibrant flavors.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Greek Salad</li>
+            <li>Hummus</li>
+            <li>Falafel</li>
+            <li>Shakshuka</li>
+            <li>Baklava</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.5s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="mexican.jpg" alt="Mexican Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Mexican</h2>
+          <p class="cuisine-description">Known for bold spices, corn, and beans, Mexican cuisine offers a colorful and flavorful culinary experience.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Tacos</li>
+            <li>Enchiladas</li>
+            <li>Guacamole</li>
+            <li>Chiles Rellenos</li>
+            <li>Quesadillas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.6s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="japanese.jpg" alt="Japanese Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Japanese</h2>
+          <p class="cuisine-description">Japanese cuisine focuses on fresh seafood, rice, and delicate flavors, emphasizing seasonality and presentation.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Sushi</li>
+            <li>Ramen</li>
+            <li>Tempura</li>
+            <li>Udon</li>
+            <li>Miso Soup</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.7s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="thai.jpg" alt="Thai Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Thai</h2>
+          <p class="cuisine-description">Known for its balance of sweet, sour, salty, and spicy, Thai cuisine offers vibrant and aromatic dishes.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Pad Thai</li>
+            <li>Green Curry</li>
+            <li>Tom Yum Soup</li>
+            <li>Mango Sticky Rice</li>
+            <li>Som Tum</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.8s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="french.webp" alt="French Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">French</h2>
+          <p class="cuisine-description">French cuisine is renowned for its rich sauces, pastries, and culinary techniques that have influenced global cooking.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Coq au Vin</li>
+            <li>Bouillabaisse</li>
+            <li>Ratatouille</li>
+            <li>Crêpes</li>
+            <li>Soufflé</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cuisine-card" style="animation-delay: 0.9s;">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="greek.jpg" alt="Greek Cuisine" class="cuisine-img" />
+          <h2 class="cuisine-title">Greek</h2>
+          <p class="cuisine-description">Greek cuisine is known for its use of fresh vegetables, olive oil, herbs, and grilled meats, offering a Mediterranean flavor profile.</p>
+        </div>
+        <div class="card-back">
+          <h3>Popular Dishes</h3>
+          <ul class="dish-list">
+            <li>Moussaka</li>
+            <li>Gyros</li>
+            <li>Greek Salad</li>
+            <li>Tzatziki</li>
+            <li>Spanakopita</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.cuisine-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const inner = card.querySelector('.card-inner');
+        inner.classList.toggle('flipped');
+      });
+    });
+  </script>
+</body>
+</html>
