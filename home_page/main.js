@@ -49,3 +49,25 @@ button.addEventListener('mouseenter', () => {
 button.addEventListener('mouseleave', () => {
     gsap.to(button, {scale: 1, duration: 0.3, ease: "power1.out"});
 });
+
+// THEME TOGGLE
+const themeToggleBtn = document.getElementById('theme-toggle');
+const body = document.body;
+const moonIconClass = 'bx bx-moon';
+const sunIconClass = 'bx bx-sun';
+
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem('theme');
+if(savedTheme === 'light'){
+    body.classList.add('light-theme');
+    themeToggleBtn.querySelector('i').className = sunIconClass;
+} else {
+    themeToggleBtn.querySelector('i').className = moonIconClass;
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('light-theme');
+    const isLight = body.classList.contains('light-theme');
+    themeToggleBtn.querySelector('i').className = isLight ? sunIconClass : moonIconClass;
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});

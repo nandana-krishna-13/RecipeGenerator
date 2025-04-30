@@ -19,12 +19,120 @@
   --z-fixed: 100;
 }
 
-@media screen and (min-width: 768px){
-  :root{
-    --big-font-size: 5rem;
-    --normal-font-size: 1rem;
-  }
+/* Light theme overrides */
+body.light-theme {
+  --first-color: #fff8f0; /* light cream background */
+  --first-color-dark: #ff6f3c; /* warm orange accent */
+  --first-color-darken: #ff9a56; /* lighter orange accent */
+  --white-color: #333333; /* dark text color */
+  background-color: var(--first-color);
+  color: var(--white-color);
 }
+
+body.light-theme .l-header {
+  background-color: #f4d7c1;
+  color: var(--white-color);
+}
+
+body.light-theme .nav__close, 
+body.light-theme .nav__link, 
+body.light-theme .nav__logo, 
+body.light-theme .nav__toggle {
+  color: var(--white-color);
+}
+
+body.light-theme .nav__link:hover {
+  color: var(--first-color-dark);
+}
+
+body.light-theme .home {
+  background-color: var(--first-color);
+}
+
+body.light-theme .home__data {
+  color: var(--white-color);
+}
+
+body.light-theme .home__button {
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+}
+
+body.light-theme .home__button:hover {
+  background-color: var(--first-color-darken);
+}
+
+body.light-theme .featured {
+  background-color: #fff8f0;
+  color: var(--white-color);
+}
+
+body.light-theme .card {
+  background-color: #f4d7c1;
+  box-shadow: 0 4px 8px rgba(255, 111, 54, 0.3);
+  color: var(--white-color);
+}
+
+body.light-theme .card:hover {
+  box-shadow: 0 8px 16px rgba(255, 111, 54, 0.6);
+}
+
+body.light-theme .card__title {
+  color: var(--first-color-dark);
+}
+
+body.light-theme .card__description {
+  color: #555;
+}
+
+body.light-theme .explore-button {
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  color: var(--first-color);
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+}
+
+body.light-theme .explore-button:hover {
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+}
+
+/* Positioning for theme toggle button */
+#theme-toggle {
+  background: none;
+  border: none;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: var(--z-fixed);
+  transition: color 0.3s ease;
+
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--first-color-dark);
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  line-height: 40px; /* Center the icon vertically */
+  font-size: 1.5rem; /* Adjust size as needed */
+  color: var(--white-color);
+  font-weight: bold;
+}
+
+/* Adjust color in light theme */
+body.light-theme #theme-toggle {
+  color: var(--white-color);
+}
+
 
 /*===== BASE =====*/
 *,::before,::after{
@@ -37,6 +145,8 @@ body{
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   font-weight: 500;
+  background-color: var(--first-color);
+  color: var(--white-color);
 }
 
 h1,p,ul{
@@ -175,10 +285,13 @@ img{
   color: var(--white-color);
   padding: 1.125rem 2rem;
   border-radius: .5rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .home__button:hover{
   background-color: var(--first-color-darken);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
 }
 
 /* ===== MEDIA QUERIES =====*/
@@ -294,6 +407,7 @@ img{
   padding: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  color: var(--white-color);
 }
 
 .card:hover {
@@ -318,17 +432,6 @@ img{
 .card__description {
   font-size: 1rem;
   color: #ccc;
-}
-
-/* Button hover enhancement */
-.home__button {
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.home__button:hover {
-  background-color: var(--first-color-darken);
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
 }
 
 /* Explore Button Styles */
@@ -361,7 +464,6 @@ img{
   transform: scale(1.1);
 }
 
-
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -372,83 +474,4 @@ img{
   100% {
     background-position: 0% 50%;
   }
-}
-/* Styles for login button on home page, matching explore button style */
-.login-button {
-  display: inline-block;
-  background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
-  background-size: 600% 600%;
-  color: var(--first-color);
-  font-weight: 600;
-  padding: 0.5rem 1.5rem; /* Reduced padding */
-  border-radius: 20px; /* Slightly smaller curve */
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 1rem; /* Smaller font */
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  animation: gradientShift 8s ease infinite, fadeIn 3s ease forwards; /* Slower fadeIn */
-  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.4);
-  border: none;
-  text-decoration: none;
-  opacity: 0; /* Initially invisible */
-}
-
-/* Define the fadeIn animation */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-
-
-.login-button:hover {
-  box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
-  transform: scale(1.05); /* Slightly lower zoom to match new size */
-}
-
-@keyframes bounceMotion {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-12px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  70% {
-    transform: translateY(-6px);
-  }
-}
-
-/* Updated button */
-.get-started-button {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1000;
-  
-  display: inline-block;
-  background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
-  background-size: 600% 600%;
-  color: var(--first-color);
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  animation: gradientShift 8s ease infinite, bounceMotion 2s ease infinite;
-  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.4);
-  border: none;
-  text-decoration: none;
-}
-
-.get-started-button:hover {
-  box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
-  transform: scale(1.05);
 }
