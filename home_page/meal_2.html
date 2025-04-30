@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meal Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #000000;
+      --yellow: #eec774;
+      --green: #88d8b0;
+      --red: #ff6f69;
+      --white: #ffffff;
+      --background-gradient: linear-gradient(135deg, #000000 0%, #121212 100%);
+      --body-font: "Poppins", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--body-font);
+      background: var(--background-gradient);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 2rem;
+      justify-content: center;
+    }
+
+    section {
+      background: #121212;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      min-width: 260px;
+      flex: 1;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--yellow);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .dishes-section { flex: 1 1 280px; }
+    .planner-section { flex: 2 1 600px; }
+    .ingredient-checklist-section {
+      flex: 0.5 1 240px;
+      max-width: 300px;
+      display: none;
+    }
+
+    .add-dish {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 2px solid var(--green);
+      font-size: 1rem;
+    }
+
+    button {
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--black);
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      animation: gradientShift 8s ease infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px var(--yellow);
+    }
+
+    .dishes-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .dish {
+      background: var(--green);
+      color: var(--black);
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      cursor: grab;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .delete-btn {
+      background: none;
+      color: var(--red);
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .day {
+      background: var(--green);
+      border-radius: 16px;
+      padding: 1rem;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .day-header {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .dropzone {
+      background: var(--yellow);
+      padding: 0.5rem;
+      flex-grow: 1;
+      border-radius: 10px;
+      overflow-y: auto;
+    }
+
+    .meal-item {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edit-section {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .popup-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #444;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 90vw;
+    }
+
+    .ingredient-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    /* .ingredient-item input[type="checkbox"] {
+      margin-right: 0.5rem;
+      accent-color: var(--green);
+    } */
+
+    @media (max-width: 1024px) {
+      main {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .week-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Ingredient Checklist Styling */
+#ingredient-checklist {
+  background: #fefefe;
+  padding: 1rem;
+  border-radius: 12px;
+  color: var(--black);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.ingredient-item label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+    /* Custom checkbox styling */
+    /* .ingredient-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--green);
+      border-radius: 6px;
+      border: 2px solid var(--green);
+      background-color: #fff;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      position: relative;
+    }
+
+    .ingredient-item input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 6px;
+      width: 5px;
+      height: 10px;
+      border: solid var(--green);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    } */
+    .ingredient-item input[type="checkbox"] {
+  /* Size & shape */
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--black);
+  background-color: #fff;
+
+  /* Remove default style */
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+
+  /* Transition */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  margin-right: 0.6rem;
+}
+
+/* Custom tick mark using pseudo-element */
+.ingredient-item input[type="checkbox"]::before {
+  content: \"\";
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--black);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+
+    .ingredient-item input[type="checkbox"]:checked {
+      background-color: var(--green);
+      border-color: var(--green);
+    }
+
+    .ingredient-item input[type="checkbox"]:checked::before {
+      opacity: 1;
+    }
+
+    .ingredient-item input[type="checkbox"]:hover {
+      box-shadow: 0 0 8px var(--green);
+      border-color: #66bb6a;
+    }
+
+    /* Close button for meal items in each day */
+    .meal-item {
+      position: relative;
+    }
+    .meal-item .close-dish-btn {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: none;
+      color: var(--red);
+      border: none;
+      font-size: 0.9rem;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+
+    .meal-item .close-dish-btn:hover {
+      transform: scale(1.3);
+      color: #ff3333;
+    }
+
+/* Hover effects for dishes and meal items */
+.dish:hover, .meal-item:hover {
+  box-shadow: 0 0 10px var(--yellow);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Slightly larger Get Ingredients button */
+#get-ingredients-trigger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--black);
+  background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+  background-size: 600% 600%;
+  animation: gradientShift 8s ease infinite;
+  cursor: pointer;
+}
+  </style>
+</head>
+
+
+<body>
+  <header>Weekly Meal Planner</header>
+  <main>
+    <section class="dishes-section">
+      <h2>Dishes</h2>
+      <div class="add-dish">
+        <input type="text" id="new-dish-input" placeholder="Add a new dish" />
+        <button id="add-dish-button">Add Dish</button>
+      </div>
+      <div class="dishes-list" id="dishes-list"></div>
+    </section>
+    <section class="planner-section">
+      <h2>Your Meal Plan</h2>
+      <div class="week-grid" id="week-grid"></div>
+    </section>
+    <section class="ingredient-checklist-section" id="ingredient-checklist-section">
+      <h2>Ingredient Checklist</h2>
+      <div id="ingredient-checklist"></div>
+    </section>
+    <div class="popup-card" id="popup-card">
+      <h3>Enter Dish Name</h3>
+      <input type="text" id="popup-dish-name" placeholder="e.g. Pancakes" />
+      <button id="generate-checklist-btn">Generate Checklist</button>
+      <button onclick="document.getElementById('popup-card').style.display='none'">Close</button>
+    </div>
+  </main>
+  <button id="get-ingredients-trigger" onclick="document.getElementById('popup-card').style.display='flex'" style="position:fixed;bottom:20px;right:20px;z-index:999;">Get Ingredients</button>
+
+  <script>
+  const dishIngredientsMap = {
+    "Pancakes": ["Flour", "Eggs", "Milk"],
+    "Omelette": ["Eggs", "Salt", "Butter"],
+    "Grilled Chicken": ["Chicken", "Salt", "Pepper"]
+  };
+
+  const checklistSection = document.getElementById('ingredient-checklist-section');
+  const checklist = document.getElementById('ingredient-checklist');
+  const popupCard = document.getElementById('popup-card');
+
+  document.getElementById('generate-checklist-btn').onclick = () => {
+    const dishName = document.getElementById('popup-dish-name').value.trim();
+    if (!dishName) return;
+    const ingredients = dishIngredientsMap[dishName] || ["Ingredient 1", "Ingredient 2"];
+    checklist.innerHTML = '';
+    ingredients.forEach(ing => {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('ingredient-item');
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.id = `ing-${ing}`;
+
+  const label = document.createElement('label');
+  label.setAttribute('for', `ing-${ing}`);
+  label.textContent = ing;
+
+  wrapper.appendChild(checkbox);
+  wrapper.appendChild(label);
+  checklist.appendChild(wrapper);
+});
+
+    checklistSection.style.display = 'flex';
+    popupCard.style.display = 'none';
+  };
+
+  // Add dish logic
+  const dishes = ["Pancakes", "Omelette", "Grilled Chicken"];
+  const dishesList = document.getElementById('dishes-list');
+  dishes.forEach(name => addDish(name));
+
+  function addDish(name) {
+    const div = document.createElement('div');
+    div.className = 'dish';
+    div.textContent = name;
+    const btn = document.createElement('button');
+    btn.className = 'delete-btn';
+    btn.textContent = '✕';
+    btn.onclick = () => div.remove();
+    div.appendChild(btn);
+    div.draggable = true;
+    div.addEventListener('dragstart', e => dragged = div);
+    dishesList.appendChild(div);
+  }
+
+  document.getElementById('add-dish-button').onclick = () => {
+    const val = document.getElementById('new-dish-input').value.trim();
+    if (val) addDish(val);
+  };
+
+  let dragged = null;
+  const weekGrid = document.getElementById('week-grid');
+  ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(day => {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'day';
+    const header = document.createElement('div');
+    header.className = 'day-header';
+    header.textContent = day;
+    const zone = document.createElement('div');
+    zone.className = 'dropzone';
+    zone.ondragover = e => e.preventDefault();
+    zone.ondrop = e => {
+      e.preventDefault();
+      if (dragged) {
+        const meal = document.createElement('div');
+        meal.className = 'meal-item';
+        meal.textContent = dragged.textContent.replace('✕', '').trim();
+
+        // Add close button to meal item
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-dish-btn';
+        closeBtn.textContent = '✕';
+        closeBtn.title = 'Remove dish';
+        closeBtn.addEventListener('click', () => {
+          meal.remove();
+        });
+        meal.appendChild(closeBtn);
+
+        zone.appendChild(meal);
+      }
+    };
+    dayDiv.appendChild(header);
+    dayDiv.appendChild(zone);
+    weekGrid.appendChild(dayDiv);
+  });
+  </script>
+</body>
+</html>
