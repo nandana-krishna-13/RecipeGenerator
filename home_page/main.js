@@ -25,7 +25,6 @@ themeToggleButton.addEventListener('click', () => {
     applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
-// Handle "Get Started" button visibility on scroll
 document.addEventListener('DOMContentLoaded', function () {
     const mainButton = document.querySelector('.home__button');
     const floatingButton = document.querySelector('.get-started-button');
@@ -35,13 +34,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', function () {
         const mainButtonPosition = mainButton.getBoundingClientRect().bottom;
+        const aboutSection = document.getElementById('about');
+        const aboutRect = aboutSection.getBoundingClientRect();
 
-        if (mainButtonPosition < 0) {
-            // Show floating button when main button scrolls out of view
+        const isAboutInView = aboutRect.top <= window.innerHeight && aboutRect.bottom >= 0;
+
+        if (mainButtonPosition < 0 || isAboutInView) {
+            // Show floating button when main button scrolls out of view or about section is in view
             floatingButton.style.display = 'flex';
         } else {
-            // Hide floating button when main button is still visible
+            // Hide floating button otherwise
             floatingButton.style.display = 'none';
         }
+    });
+
+    // Add 3D tilt effect to about section images
+    const aboutImages = document.querySelectorAll('.about__image');
+    console.log('About images found:', aboutImages.length);
+
+    aboutImages.forEach(image => {
+        console.log('Attaching event listeners to image:', image);
+        image.style.transition = 'transform 0.2s ease';
+
+        image.addEventListener('mousemove', (e) => {
+            const rect = image.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element
+            const y = e.clientY - rect.top;  // y position within the element
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+
+            const rotateX = deltaY * 10; // max 10 degrees rotation
+            const rotateY = deltaX * 10;
+
+            image.style.transform = `perspective(500px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
+        });
+
+        image.addEventListener('mouseleave', () => {
+            image.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
     });
 });
