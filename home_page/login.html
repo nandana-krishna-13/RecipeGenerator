@@ -6,8 +6,13 @@
     <title>Login - Plateful.ai</title>
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="login-theme.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
+    <button id="theme-toggle" aria-label="Toggle Dark/Light Theme" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; background: #f7d8cc; border: none; color: inherit; font-size: 1.5rem; cursor: pointer;">
+        <i class='bx bx-moon'></i>
+    </button>
     <div class="login-wrapper">
         <div class="login-left">
             <div class="overlay-text">
@@ -55,5 +60,6 @@
         </div>
     </div>
     <script src="login.js"></script>
+    <script src="./main.js"></script>
 </body>
 </html>
