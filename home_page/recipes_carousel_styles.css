@@ -6,10 +6,34 @@
   --body-font: 'Poppins', sans-serif;
 }
 
+#typing-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--first-color-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid var(--first-color-dark);
+  display: block;
+  max-width: 100%;
+  text-align: center;
+  margin: 0 auto 1rem auto;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--first-color-dark); }
+}
+
 body {
   background-color: var(--first-color);
   color: var(--white-color);
-  font-family: var(--body-font);
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 2rem 1rem;
 }
@@ -58,6 +82,8 @@ h1 {
   padding: 1rem 0;
   width: 100%;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
 }
 
 .recipe-feed::-webkit-scrollbar {
@@ -171,6 +197,13 @@ h1 {
   overflow-y: auto;
   box-sizing: border-box;
   position: relative;
+  font-family: 'Poppins', sans-serif;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes fadeInScale {
@@ -296,4 +329,157 @@ h1 {
     max-width: 100%;
     max-height: none;
   }
+}
+
+/* Upvote/Downvote buttons */
+#vote-section button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: color 0.3s ease;
+  color: var(--first-color-dark);
+  fill: none;
+  stroke: var(--first-color-dark);
+  stroke-width: 1.5px;
+}
+
+#vote-section button:hover {
+  color: var(--first-color-darken);
+  stroke: var(--first-color-darken);
+}
+
+/* Outlined icon style */
+#vote-section button.outline {
+  color: var(--first-color-dark);
+  fill: none;
+  stroke: var(--first-color-dark);
+}
+
+/* Filled icon style */
+#vote-section button.filled {
+  color: var(--first-color-dark);
+  fill: var(--first-color-dark);
+  stroke: var(--first-color-dark);
+}
+
+#vote-section span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--first-color-dark);
+}
+
+/* Save button styles */
+.cuisine-card {
+  position: relative;
+}
+
+.save-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--first-color-dark);
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.save-btn:hover {
+  color: var(--first-color-darken);
+}
+
+.save-btn.saved svg path {
+  fill: green;
+  stroke: green;
+}
+
+/* Save button in preview modal */
+#save-btn svg path {
+  fill: none;
+  stroke: var(--first-color-dark);
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+#save-btn.saved svg path {
+  fill: green;
+  stroke: green;
+}
+
+/* Save dialog box */
+.save-dialog {
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 1s ease;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1100;
+}
+
+.save-dialog.hidden {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* Comment section */
+#comment-section h3 {
+  margin-bottom: 0.5rem;
+  color: var(--first-color-dark);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+#comment-list {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid var(--first-color-darken);
+  border-radius: 8px;
+  padding: 0.5rem;
+  background-color: #222;
+  list-style: none;
+  margin: 0;
+}
+
+#comment-list li {
+  border-bottom: 1px solid var(--first-color-darken);
+  padding: 0.25rem 0;
+  color: var(--white-color);
+}
+
+#comment-form {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#comment-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--first-color-darken);
+  background-color: var(--first-color);
+  color: var(--white-color);
+}
+
+#comment-form button {
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#comment-form button:hover {
+  background-color: var(--first-color-darken);
 }
