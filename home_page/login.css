@@ -216,15 +216,29 @@ body {
 
 .login-button {
   width: 100%;
-  padding: 1rem;
-  background-color: var(--first-color-dark);
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(270deg, #6d6c6c, #1a1a1a, #3d3d3d);
+  background-size: 600% 600%;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   color: var(--white-color);
   font-size: 1.125rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .login-button:hover {
@@ -316,3 +330,46 @@ body {
 .signup-text a:hover {
   color: var(--first-color-darken);
 }
+
+#theme-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: var(--z-fixed);
+  transition: color 0.3s ease;
+}
+
+body.dark-theme #theme-toggle {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Dark theme styles */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme .login-wrapper {
+  background-color: #1e1e1e;
+  background-size: cover;
+  background-position: left;
+  background-position: -200px;
+  background-repeat: no-repeat;
+}
+
