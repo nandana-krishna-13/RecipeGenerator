@@ -373,7 +373,143 @@ img{
     background-position: 0% 50%;
   }
 }
-/* Styles for login button on home page, matching explore button style */
+
+/* Light theme overrides */
+body.light-theme {
+  --first-color: #fff8f0; /* light cream background */
+  --first-color-dark: #ff6f3c; /* warm orange accent */
+  --first-color-darken: #ff9a56; /* lighter orange accent */
+  --white-color: #333333; /* dark text color */
+  background-color: var(--first-color);
+  color: var(--white-color);
+}
+
+body.light-theme .l-header {
+  background-color: #f4d7c1;
+  color: var(--white-color);
+}
+
+body.light-theme .nav__close, 
+body.light-theme .nav__link, 
+body.light-theme .nav__logo, 
+body.light-theme .nav__toggle {
+  color: var(--white-color);
+}
+
+body.light-theme .nav__link:hover {
+  color: var(--first-color-dark);
+}
+
+body.light-theme .home {
+  background-color: var(--first-color);
+}
+
+body.light-theme .home__data {
+  color: var(--white-color);
+}
+
+body.light-theme .home__button {
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+}
+
+body.light-theme .home__button:hover {
+  background-color: var(--first-color-darken);
+}
+
+body.light-theme .featured {
+  background-color: #fff8f0;
+  color: var(--white-color);
+}
+
+body.light-theme .card {
+  background-color: #f4d7c1;
+  box-shadow: 0 4px 8px rgba(255, 111, 54, 0.3);
+  color: var(--white-color);
+}
+
+body.light-theme .card:hover {
+  box-shadow: 0 8px 16px rgba(255, 111, 54, 0.6);
+}
+
+body.light-theme .card__title {
+  color: var(--first-color-dark);
+}
+
+body.light-theme .card__description {
+  color: #555;
+}
+
+body.light-theme .explore-button {
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  color: var(--first-color);
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+}
+
+body.light-theme .explore-button:hover {
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+}
+
+body.light-theme .login-button {
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  color: var(--first-color);
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+}
+
+body.light-theme .login-button:hover {
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+}
+
+body.light-theme .get-started-button {
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  color: var(--first-color);
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+}
+
+body.light-theme .get-started-button:hover {
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+}
+
+/* Positioning for theme toggle button */
+#theme-toggle {
+  background: none;
+  border: none;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: var(--z-fixed);
+  transition: color 0.3s ease;
+
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--first-color-dark);
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  line-height: 40px; /* Center the icon vertically */
+  font-size: 1.5rem; /* Adjust size as needed */
+  color: var(--white-color);
+  font-weight: bold;
+}
+
+/* Adjust color in light theme */
+body.light-theme #theme-toggle {
+  color: var(--white-color);
+}
+
+
+
 .login-button {
   display: inline-block;
   background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
@@ -391,17 +527,8 @@ img{
   box-shadow: 0 4px 15px rgba(255, 204, 92, 0.4);
   border: none;
   text-decoration: none;
-  opacity: 0; /* Initially invisible */
+  opacity: 1; /* Make visible */
 }
-
-/* Define the fadeIn animation */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-
 
 .login-button:hover {
   box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
