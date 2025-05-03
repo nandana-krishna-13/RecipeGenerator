@@ -748,6 +748,26 @@ body.light-theme #theme-toggle {
   opacity: 1; /* Make visible */
 }
 
+.profile-icon {
+  font-size: 1.8rem;
+  color: var(--first-color);
+  margin-left: 12px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, color 0.3s ease;
+  vertical-align: middle;
+  padding: 4px;
+  border-radius: 20px;
+  background: linear-gradient(270deg, #ffcc5c, #c2edd8, #ffcc5c);
+  background-size: 600% 600%;
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.4);
+}
+
+.profile-icon:hover {
+  color: #000000;
+  box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
+  transform: scale(1.1);
+}
+
 
 
 
