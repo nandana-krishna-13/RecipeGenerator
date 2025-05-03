@@ -1,130 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- =====BOX ICONS===== -->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =====BOX ICONS===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-        <!-- ===== CSS ===== -->
-        <link rel="stylesheet" href="styles.css">
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="styles.css">
 
-        <title>Plateful</title>
-    </head>
-    <body>
-        <!--===== HEADER =====-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo">Plateful.ai</a>
+    <title>Plateful</title>
+</head>
+<body>
+    <!--===== HEADER =====-->
+    <header class="l-header">
+        <nav class="nav bd-grid">
+            <div>
+                <a href="#" class="nav__logo"><img id="nav-logo" src="logo_dark.png" alt="Plateful.ai Logo" style="height: 40px;"></a>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+
+            <div class="nav__menu" id="nav-menu">
+                <div class="nav__close" id="nav-close">
+                    <i class='bx bx-x'></i>
                 </div>
-                
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
+
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#skills" class="nav__link">Blog</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Theme">
+                <i class='bx bx-moon'></i>
+            </button>
+            <div class="nav__login">
+                <button id="loginButton" class="login-button">Login/Signup</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Add this somewhere in your HTML body -->
+    <button class="get-started-button">
+        Get Started
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style="margin-left: 8px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+
+    <main class="l-main">
+        <!--===== HOME =====-->
+        <section class="home" id="home">
+            <div class="home__container bd-grid">
+                <div class="home__img">
+                    <img src="vecteezy_ai-generative-cartoon-tomato-png_23858883.png" alt="Tomato" data-speed="-2" class="move float">
+                    <img src="vecteezy_bell-peppers-in-a-wicker-basket-3d-style_47937782.png" alt="Bell Peppers" data-speed="2" class="move float">
+                    <img src="vecteezy_cartoon-cabbage-vegetable-illustration-isolated-on-the_48332635.png" alt="Cabbage" data-speed="-1" class="move float">
+                    <img src="vecteezy_wonderful-creative-fresh-vegetables-arranged-on-table_57436431.png" alt="Fresh Vegetables" data-speed="1" class="move float">
                 </div>
 
-                <div class="nav__menu" id="nav-menu">
-                    <div class="nav__close" id="nav-close">
-                        <i class='bx bx-x'></i>
-                    </div>
-
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Blog</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
+                <div class="home__data">
+                    <h1 class="home__title">Craving<br> Something?</h1>
+                    <p class="home__description">Unlock delicious possibilities — <br> create unique recipes with just the ingredients you have! </p>
+                    <a href="#" class="home__button">Get Started</a>
                 </div>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Theme">
-                    <i class='bx bx-moon'></i>
-                </button>
-                <div class="nav__login">
-                    <button id="loginButton" class="login-button">Login/Signup</button>
-        </header>
-        <!-- Add this somewhere in your HTML body -->
-<button class="get-started-button">
-            Get Started
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style="margin-left: 8px;">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          
+            </div>
+        </section>
 
-        <main class="l-main">
-            <!--===== HOME =====-->
-            <section class="home" id="home">
-                <div class="home__container bd-grid">
-                    <div class="home__img">
-                        <img src="vecteezy_ai-generative-cartoon-tomato-png_23858883.png" alt="Tomato" data-speed="-2" class="move float">
-                        <img src="vecteezy_bell-peppers-in-a-wicker-basket-3d-style_47937782.png" alt="Bell Peppers" data-speed="2" class="move float">
-                        <img src="vecteezy_cartoon-cabbage-vegetable-illustration-isolated-on-the_48332635.png" alt="Cabbage" data-speed="-1" class="move float">
-                        <img src="vecteezy_wonderful-creative-fresh-vegetables-arranged-on-table_57436431.png" alt="Fresh Vegetables" data-speed="1" class="move float">
-                    </div>
-                    
-                    <div class="home__data">
-                        <h1 class="home__title">Craving<br> Something?</h1>
-                        <p class="home__description">Unlock delicious possibilities — <br> create unique recipes with just the ingredients you have! </p>
-<a href="#" class="home__button">Get Started</a>
-                    </div>
+        <!--===== FEATURED RECIPES =====-->
+        <section class="featured" id="featured">
+            <div class="featured__container bd-grid">
+                <h2 class="section-title">Featured Cuisines</h2>
+                <div class="featured__cards">
+                    <article class="card">
+                        <img src="italian.jpeg" alt="Recipe 1" class="card__img">
+                        <h3 class="card__title">Italian Cuisine</h3>
+                        <p class="card__description">Explore the rich and comforting flavors of Italian cuisine, from hearty pastas to classic wood-fired pizzas.</p>
+                    </article>
+                    <article class="card">
+                        <img src="Malabar.jpg" alt="Recipe 2" class="card__img">
+                        <h3 class="card__title">Malabar Cuisine</h3>
+                        <p class="card__description">Delve into the bold and aromatic flavors of Malabar cuisine, featuring spicy curries, coastal delicacies, and fragrant biryanis.</p>
+                    </article>
+                    <article class="card">
+                        <img src="chinese.avif" alt="Recipe 3" class="card__img">
+                        <h3 class="card__title">Chinese Cuisine</h3>
+                        <p class="card__description">Savor the vibrant and diverse flavors of Chinese cuisine, featuring savory stir-fries, delicate dim sum, and bold street food delights.</p>
+                    </article>
                 </div>
-            </section>
-
-            <!--===== FEATURED RECIPES =====-->
-            <section class="featured" id="featured">
-                <div class="featured__container bd-grid">
-                    <h2 class="section-title">Featured Cuisines</h2>
-                    <div class="featured__cards">
-                        <article class="card">
-                            <img src="italian.jpeg" alt="Recipe 1" class="card__img">
-                            <h3 class="card__title">Italian Cuisine</h3>
-                            <p class="card__description">Explore the rich and comforting flavors of Italian cuisine, from hearty pastas to classic wood-fired pizzas.</p>
-                        </article>
-                        <article class="card">
-                            <img src="Malabar.jpg" alt="Recipe 2" class="card__img">
-                            <h3 class="card__title">Malabar Cuisine</h3>
-                            <p class="card__description">Delve into the bold and aromatic flavors of Malabar cuisine, featuring spicy curries, coastal delicacies, and fragrant biryanis.</p>
-                        </article>
-                        <article class="card">
-                            <img src="chinese.avif" alt="Recipe 3" class="card__img">
-                            <h3 class="card__title">Chinese Cuisine</h3>
-                            <p class="card__description">Savor the vibrant and diverse flavors of Chinese cuisine, featuring savory stir-fries, delicate dim sum, and bold street food delights.</p>
-                        </article>
-                    </div>
-                    <div class="explore-button-container">
-                        <a href="#" class="explore-button">Explore</a>
-                    </div>
+                <div class="explore-button-container">
+                    <a href="#" class="explore-button">Explore</a>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <!--===== GSAP =====-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <!--===== GSAP =====-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 
-        <!--===== MAIN JS =====-->
-        <script src="main.js"></script>
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-  const mainButton = document.querySelector('.home__button');
-  const floatingButton = document.querySelector('.get-started-button');
-
-  // Initially hide the floating button
-  floatingButton.style.display = 'none';
-
-  window.addEventListener('scroll', function () {
-    const mainButtonPosition = mainButton.getBoundingClientRect().bottom;
-
-    if (mainButtonPosition < 0) {
-      // Show floating button when main button scrolls out of view
-      floatingButton.style.display = 'flex';
-    } else {
-      // Hide floating button when main button is still visible
-      floatingButton.style.display = 'none';
-    }
-  });
-});
-
-          
-        </script>
-          
-    </body>
+    <!--===== MAIN JS =====-->
+    <script src="main.js"></script>
+</body>
 </html>

@@ -1,73 +1,47 @@
-/*===== MENU SHOW Y HIDDEN =====*/
-const navMenu = document.getElementById('nav-menu'),
-    toggleMenu = document.getElementById('nav-toggle'),
-    closeMenu = document.getElementById('nav-close')
+// Handle theme toggle
+const themeToggleButton = document.getElementById('theme-toggle');
+const logo = document.getElementById('nav-logo');
 
-// SHOW
-toggleMenu.addEventListener('click', ()=>{
-    navMenu.classList.toggle('show')
-})
-
-// HIDDEN
-closeMenu.addEventListener('click', ()=>{
-    navMenu.classList.remove('show')
-})
-
-/*===== MOUSEMOVE HOME IMG =====*/
-document.addEventListener('mousemove', move);
-function move(e){
-    this.querySelectorAll('.move').forEach(layer =>{
-        const speed = layer.getAttribute('data-speed')
-
-        const x = (window.innerWidth - e.pageX*speed)/120
-        const y = (window.innerHeight - e.pageY*speed)/120
-
-        layer.style.transform = `translateX(${x}px) translateY(${y}px)`
-    })
+// Check the current theme and set the logo accordingly
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme'); // Ensure only one theme is active
+        logo.src = 'logo_light.png'; // Light logo for dark theme
+    } else {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme'); // Ensure only one theme is active
+        logo.src = 'logo_dark.png'; // Dark logo for light theme
+    }
 }
 
-/*===== GSAP ANIMATION =====*/
-// NAV
-gsap.from('.nav__logo, .nav__toggle', {opacity: 0, duration: 1, delay:2, y: 10})
-gsap.from('.nav__item', {opacity: 0, duration: 1, delay: 2.1, y: 30, stagger: 0.2,})
+// Initialize theme based on system preference
+const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+applyTheme(darkThemeMediaQuery.matches ? 'dark' : 'light');
 
-// HOME
-gsap.from('.home__title', {opacity: 0, duration: 1, delay:1.6, y: 30})
-gsap.from('.home__description', {opacity: 0, duration: 1, delay:1.8, y: 30})
-gsap.from('.home__button', {opacity: 0, duration: 1, delay:2.1, y: 30})
-gsap.from('.home__img', {opacity: 0, duration: 1, delay:1.3, y: 30})
-
-// FEATURED RECIPES
-gsap.from('.section-title', {opacity: 0, duration: 1, delay: 2.5, y: 30})
-gsap.from('.card', {opacity: 0, duration: 1, delay: 2.7, y: 30, stagger: 0.3})
-
-// BUTTON HOVER ANIMATION
-const button = document.querySelector('.home__button');
-button.addEventListener('mouseenter', () => {
-    gsap.to(button, {scale: 1.1, duration: 0.3, ease: "power1.out"});
-});
-button.addEventListener('mouseleave', () => {
-    gsap.to(button, {scale: 1, duration: 0.3, ease: "power1.out"});
+// Toggle theme on button click
+themeToggleButton.addEventListener('click', () => {
+    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
-// THEME TOGGLE
-const themeToggleBtn = document.getElementById('theme-toggle');
-const body = document.body;
-const moonIconClass = 'bx bx-moon';
-const sunIconClass = 'bx bx-sun';
+// Handle "Get Started" button visibility on scroll
+document.addEventListener('DOMContentLoaded', function () {
+    const mainButton = document.querySelector('.home__button');
+    const floatingButton = document.querySelector('.get-started-button');
 
-// Load saved theme from localStorage
-const savedTheme = localStorage.getItem('theme');
-if(savedTheme === 'light'){
-    body.classList.add('light-theme');
-    themeToggleBtn.querySelector('i').className = sunIconClass;
-} else {
-    themeToggleBtn.querySelector('i').className = moonIconClass;
-}
+    // Initially hide the floating button
+    floatingButton.style.display = 'none';
 
-themeToggleBtn.addEventListener('click', () => {
-    body.classList.toggle('light-theme');
-    const isLight = body.classList.contains('light-theme');
-    themeToggleBtn.querySelector('i').className = isLight ? sunIconClass : moonIconClass;
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    window.addEventListener('scroll', function () {
+        const mainButtonPosition = mainButton.getBoundingClientRect().bottom;
+
+        if (mainButtonPosition < 0) {
+            // Show floating button when main button scrolls out of view
+            floatingButton.style.display = 'flex';
+        } else {
+            // Hide floating button when main button is still visible
+            floatingButton.style.display = 'none';
+        }
+    });
 });
