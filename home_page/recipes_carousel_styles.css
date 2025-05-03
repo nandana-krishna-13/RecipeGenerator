@@ -13,7 +13,7 @@
   color: var(--first-color-dark);
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid var(--first-color-dark);
+  border-right: none;
   display: block;
   max-width: 100%;
   text-align: center;
