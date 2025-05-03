@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Feed with Carousel</title>
+  <link rel="stylesheet" href="recipes_carousel_styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Recipe Sharing Feed</h1>
+    <button id="share-recipe-btn">Share a New Recipe</button>
+  </header>
+
+  <main>
+    <section class="carousel-container">
+      <button class="carousel-btn prev-btn" aria-label="Previous recipes">&#10094;</button>
+      <section class="recipe-feed" id="recipe-feed">
+        <!-- Recipe cards will be dynamically added here -->
+      </section>
+      <button class="carousel-btn next-btn" aria-label="Next recipes">&#10095;</button>
+    </section>
+  </main>
+
+  <!-- Share Recipe Modal -->
+  <div id="share-recipe-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Share a New Recipe</h2>
+      <form id="share-recipe-form">
+        <label for="recipe-title">Title</label>
+        <input type="text" id="recipe-title" name="recipe-title" required />
+
+        <label for="recipe-text">Recipe Text</label>
+        <textarea id="recipe-text" name="recipe-text" rows="5" required></textarea>
+
+        <label for="recipe-name">Your Name</label>
+        <input type="text" id="recipe-name" name="recipe-name" required />
+
+        <label for="recipe-place">Your Location</label>
+        <input type="text" id="recipe-place" name="recipe-place" required />
+
+        <label for="recipe-image">Upload Photo</label>
+        <input type="file" id="recipe-image" name="recipe-image" accept="image/*" />
+
+        <div class="modal-buttons">
+          <button type="submit">Post Recipe</button>
+          <button type="button" id="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Recipe Preview Modal -->
+  <div id="recipe-preview-modal" class="modal hidden">
+    <div class="modal-content" id="recipe-preview-content">
+      <button id="close-preview-btn" aria-label="Close preview" style="position:absolute; top:0.5rem; right:0.5rem; font-size:2rem; background:none; border:none; color: var(--first-color-dark); cursor:pointer; z-index: 10;">&times;</button>
+      <img id="preview-image" src="" alt="Recipe Image" style="width:100%; border-radius:10px; margin-bottom:1rem; position: relative; z-index: 1;" />
+      <h2 id="preview-title"></h2>
+      <p id="preview-text">Classic Italian pasta dish made with eggs, cheese, pancetta, and pepper. This recipe is a bit lengthy to test scrolling functionality in the modal popup. Start by boiling pasta until al dente. In a separate pan, cook pancetta until crispy. Beat eggs with grated cheese and pepper. Combine pasta with pancetta and remove from heat. Quickly mix in egg mixture to create a creamy sauce without scrambling the eggs. Serve immediately with extra cheese and pepper on top.</p>
+      <p><strong>By:</strong> <span id="preview-name"></span> from <span id="preview-place"></span></p>
+      <p><small id="preview-timestamp"></small></p>
+    </div>
+  </div>
+
+  <script src="recipes_carousel_script.js"></script>
+</body>
+</html>
