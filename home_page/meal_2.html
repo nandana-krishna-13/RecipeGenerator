@@ -8,9 +8,9 @@
   <style>
     :root {
       --black: #000000;
-      --yellow: #eec774;
-      --green: #88d8b0;
-      --red: #ff6f69;
+      --yellow: #EEDF7A;
+      --green: #D8A25E;
+      --red:#A04747;
       --white: #ffffff;
       --background-gradient: linear-gradient(135deg, #000000 0%, #121212 100%);
       --body-font: "Poppins", sans-serif;
@@ -376,7 +376,9 @@
 
 
 <body>
-  <header>Weekly Meal Planner</header>
+  <header>Weekly Meal Map</header>
+  <div id="typing-text" style="color: var(--yellow); text-align: center; font-size: 1.2rem; margin-top: 0.5rem; height: 1.5rem;"></div>
+
   <main>
     <section class="dishes-section">
       <h2>Dishes</h2>
@@ -500,5 +502,27 @@
     weekGrid.appendChild(dayDiv);
   });
   </script>
+  <script>
+    // Typing animation for the text below the header
+    const text = "Plan your perfect week—just drag and drop dishes into each day!";
+    const typingTextElem = document.getElementById('typing-text');
+    let index = 0;
+  
+    function type() {
+      if (index < text.length) {
+        typingTextElem.textContent += text.charAt(index);
+        index++;
+        setTimeout(type, 50);
+      }
+    }
+  
+    // Clear text and start typing animation on page load
+    window.onload = () => {
+      typingTextElem.textContent = "";
+      index = 0;
+      type();
+    };
+  </script>
+  
 </body>
 </html>
