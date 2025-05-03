@@ -172,7 +172,7 @@ img{
 .home__button{
   display: inline-block;
   background-color: var(--first-color-dark);
-  color: var(--white-color);
+  color: var(--first-color);
   padding: 1.125rem 2rem;
   border-radius: .5rem;
 }
