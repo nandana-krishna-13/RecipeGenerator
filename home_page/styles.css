@@ -172,7 +172,7 @@ img{
 .home__button{
   display: inline-block;
   background-color: var(--first-color-dark);
-  color: var(--first-color);
+  color: var(--white-color);
   padding: 1.125rem 2rem;
   border-radius: .5rem;
 }
@@ -270,6 +270,20 @@ img{
   background-color: #121212;
   padding: 3rem 1rem;
   color: var(--white-color);
+}
+
+/* Animation for meal planner and community videos on hover */
+.meal-planner__container video,
+.recipe-sharing__container video {
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.meal-planner__container video:hover,
+.recipe-sharing__container video:hover {
+  transform: scale(1.05) translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 219, 140, 0.7);
+  cursor: pointer;
 }
 
 .about__container p {
