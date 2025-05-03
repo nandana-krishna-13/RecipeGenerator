@@ -1,0 +1,191 @@
+/* Strictly light theme styles for login2.html - no changes to dark theme */
+
+/* Light theme background */
+body.light-theme {
+  background-color: #fff8f0;
+  color: #333333;
+}
+
+/* Remove dark background image in light theme */
+body.light-theme .login-wrapper {
+  background-color: #fff8f0;
+  background-image: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Light theme overlay */
+body.light-theme .login-left {
+  background-image: url('light\ theme\ login.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+body.light-theme .login-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.611);
+  z-index: 1;
+}
+
+/* Light theme overlay text */
+body.light-theme .overlay-text {
+  color: #333333;
+}
+
+/* Light theme login right background */
+body.light-theme .login-right {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Light theme input labels */
+body.light-theme .input-group label {
+  color: #333333;
+}
+
+/* Light theme input placeholders */
+body.light-theme .input-icon input::placeholder {
+  color: #999999;
+}
+
+/* Light theme input text */
+body.light-theme .input-icon input {
+  background-color: #f9f9f9;
+  color: #333333;
+  border: 1px solid #ccc;
+}
+
+/* Light theme input focus */
+body.light-theme .input-icon input:focus {
+  box-shadow: 0 0 8px #bbb;
+}
+
+/* Light theme error messages */
+body.light-theme .error-message {
+  color: #d9534f;
+}
+
+/* Light theme options text */
+body.light-theme .options {
+  color: #333333;
+}
+
+/* Light theme forgot link */
+body.light-theme .forgot-link {
+  color: #007bff;
+}
+
+body.light-theme .forgot-link:hover {
+  color: #0056b3;
+}
+
+/* Light theme login button */
+body.light-theme .login-button {
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  color: #fff8f0;
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  animation: gradientShift 8s ease infinite, fadeIn 3s ease forwards;
+  border: none;
+  text-decoration: none;
+  opacity: 1;
+}
+
+body.light-theme .login-button:hover {
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+  transform: scale(1.05);
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Light theme divider */
+body.light-theme .divider {
+  color: #666666;
+}
+
+body.light-theme .divider span {
+  background-color: #ffffff;
+}
+
+/* Light theme social buttons */
+body.light-theme .social-btn.google {
+  background-color: #db4437;
+  color: white;
+}
+
+body.light-theme .social-btn.google:hover {
+  background-color: #c33d2e;
+}
+
+body.light-theme .social-btn.facebook {
+  background-color: #3b5998;
+  color: white;
+}
+
+body.light-theme .social-btn.facebook:hover {
+  background-color: #334d84;
+}
+
+/* Light theme signup text */
+body.light-theme .signup-text {
+  color: #333333;
+}
+
+body.light-theme .signup-text a {
+  color: #007bff;
+}
+
+body.light-theme .signup-text a:hover {
+  color: #0056b3;
+}
+
+/* Toggle button styles */
+body.light-theme #theme-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  transition: color 0.3s ease;
+
+  color: #ff6f3c;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  line-height: 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
