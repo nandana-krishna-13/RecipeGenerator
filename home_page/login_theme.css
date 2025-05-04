@@ -37,7 +37,7 @@ body.light-theme .overlay-text {
 
 /* Light theme login right background */
 body.light-theme .login-right {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
   color: #333333;
 }
 
@@ -121,11 +121,25 @@ body.light-theme .login-button:hover {
 
 /* Light theme divider */
 body.light-theme .divider {
-  color: #666666;
+  color: #000000;
+  position: relative;
 }
 
 body.light-theme .divider span {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
+  position: relative;
+  z-index: 1;
+}
+
+body.light-theme .divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #000000;
+  transform: translateY(-50%);
+  z-index: 0;
 }
 
 /* Light theme social buttons */
@@ -186,6 +200,14 @@ body.light-theme #theme-toggle {
   line-height: 40px;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+body.light-theme .login-subtitle {
+  color: #000000;
+}
+
+body.light-theme .input-icon i {
+  color: #000000;
 }
 
 
