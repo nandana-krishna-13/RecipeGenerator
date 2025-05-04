@@ -21,9 +21,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     }
 
     if (valid) {
-        // For demo purposes, just alert success
         alert('Login successful! (Demo)');
-        // Here you would typically handle login logic, e.g., API call
+        window.location.href = 'index.html';
         this.reset();
     }
 });
