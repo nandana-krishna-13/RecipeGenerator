@@ -242,35 +242,6 @@
   font-size: 1rem;
 }
 
-    /* Custom checkbox styling */
-    /* .ingredient-item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      accent-color: var(--green);
-      border-radius: 6px;
-      border: 2px solid var(--green);
-      background-color: #fff;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-      appearance: none;
-      -webkit-appearance: none;
-      outline: none;
-      position: relative;
-    }
-
-    .ingredient-item input[type="checkbox"]::before {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 6px;
-      width: 5px;
-      height: 10px;
-      border: solid var(--green);
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    } */
     .ingredient-item input[type="checkbox"] {
   /* Size & shape */
   width: 24px;
@@ -390,11 +361,54 @@ display: block;
 object-fit: cover;
 }
   </style>
+  <style>
+    /* Logo styles */
+    .logo-link {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      display: inline-block;
+      width: 120px;
+      height: auto;
+      z-index: 1001;
+    }
+    .logo {
+      width: 150%;
+      height: auto;
+      display: block;
+    }
+    .logo-light {
+      display: none;
+    }
+    body.light-theme .logo-dark {
+      display: none;
+    }
+    body.light-theme .logo-light {
+      display: block;
+    }
+  </style>
+  <style>
+    .header-title {
+      display: inline-block;
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-left: 140px; /* to avoid overlap with logo */
+      line-height: 3rem;
+      vertical-align: middle;
+    }
+  </style>
 </head>
 
 
 <body>
-  <header>Weekly Meal Map</header>
+  <header>
+    <a href="index.html" class="logo-link" aria-label="Home">
+      <img src="logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
+      <img src="logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
+    </a>
+    <h1 class="header-title">Weekly Meal Map</h1>
+  </header>
   <div id="typing-text" style="color: var(--yellow); text-align: center; font-size: 1.2rem; margin-top: 0.5rem; height: 1.5rem;"></div>
   <div id="top-right-video-container">
     <video autoplay loop muted playsinline>

@@ -134,6 +134,37 @@
 </style>
 </head>
 <body>
+  <header>
+    <a href="index.html" class="logo-link" aria-label="Home">
+      <img src="logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
+      <img src="logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
+    </a>
+  </header>
+  <style>
+    .logo-link {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      display: inline-block;
+      width: 150px;
+      height: auto;
+      z-index: 1001;
+    }
+    .logo {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .logo-light {
+      display: none;
+    }
+    body.light-theme .logo-dark {
+      display: none;
+    }
+    body.light-theme .logo-light {
+      display: block;
+    }
+  </style>
   <div class="container">
     <h1>Profile Dashboard</h1>
     <section class="profile-info">
