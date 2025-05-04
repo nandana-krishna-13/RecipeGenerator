@@ -717,13 +717,13 @@ body.light-theme .get-started-button:hover {
   text-align: center;
   line-height: 40px; /* Center the icon vertically */
   font-size: 1.5rem; /* Adjust size as needed */
-  color: var(--white-color);
+  color: #000000;
   font-weight: bold;
 }
 
 /* Adjust color in light theme */
 body.light-theme #theme-toggle {
-  color: var(--white-color);
+  color: #ffffff;
 }
 
 
@@ -768,14 +768,17 @@ body.light-theme #theme-toggle {
   transform: scale(1.1);
 }
 
+body.light-theme .profile-icon {
+  color: var(--first-color);
+  background: linear-gradient(270deg, #ff6f3c, #ff9a56, #ff6f3c);
+  box-shadow: 0 4px 15px rgba(255, 111, 54, 0.4);
+}
 
-
-
-
-
-
-
-
+body.light-theme .profile-icon:hover {
+  color: #fff8f0;
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+  transform: scale(1.1);
+}
 
 .login-button:hover {
   box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
