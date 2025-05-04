@@ -371,6 +371,24 @@
   animation: gradientShift 8s ease infinite;
   cursor: pointer;
 }
+#top-right-video-container {
+position: absolute;
+top: 1rem;
+right: 1rem;
+width: 300px;
+height: 225px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+border-radius: 8px;
+overflow: hidden;
+z-index: 1000;
+background: black;
+}
+#top-right-video-container video {
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+}
   </style>
 </head>
 
@@ -378,7 +396,12 @@
 <body>
   <header>Weekly Meal Map</header>
   <div id="typing-text" style="color: var(--yellow); text-align: center; font-size: 1.2rem; margin-top: 0.5rem; height: 1.5rem;"></div>
-
+  <div id="top-right-video-container">
+    <video autoplay loop muted playsinline>
+    <source src="burger.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+    </video>
+    </div>
   <main>
     <section class="dishes-section">
       <h2>Dishes</h2>

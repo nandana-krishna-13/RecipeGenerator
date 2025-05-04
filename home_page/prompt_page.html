@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generate Recipe - Plateful.ai</title>
-  <link rel="stylesheet" href="../../home_page/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       background-color: var(--first-color);
@@ -408,6 +408,14 @@
         padding: 8px 12px;
       }
     }
+  /* Hide scrollbar for saved recipes container */
+  .side-container.saved-recipes::-webkit-scrollbar {
+    display: none;
+  }
+  .side-container.saved-recipes {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
   </style>
 </head>
 <body>
@@ -428,7 +436,7 @@
       <button id="saveRecipeBtn" style="margin-top: 15px; padding: 14px; font-size: 1.2rem; background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c); background-size: 600% 600%; color: var(--first-color); border: none; border-radius: 30px; cursor: pointer; font-weight: 700; letter-spacing: 1.2px; box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3); display: none;">Save Recipe</button>
     </div>
 
-    <div class="side-container">
+    <div class="side-container saved-recipes">
       <h2><span style="margin-right: 8px;">📖</span>Saved Recipes</h2>
       <ul id="previousRecipes"></ul>
     </div>
