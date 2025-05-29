@@ -19,9 +19,7 @@
                 <a href="#" class="nav__logo"><img id="nav-logo" src="logo_dark.png" alt="Plateful.ai Logo" style="height: 40px;"></a>
             </div>
 
-            <div class="nav__toggle" id="nav-toggle">
-                <i class='bx bx-menu'></i>
-            </div>
+
 
             <div class="nav__menu" id="nav-menu">
                 <div class="nav__close" id="nav-close">
@@ -62,8 +60,8 @@
         <section class="home" id="home">
             <div class="home__container bd-grid">
                 <div class="home__img">
-                    <!-- <img src="vecteezy_ai-generative-cartoon-tomato-png_23858883.png" alt="Tomato" data-speed="-2" class="move float"> -->
-                    <!-- <img src="vecteezy_bell-peppers-in-a-wicker-basket-3d-style_47937782.png" alt="Bell Peppers" data-speed="2" class="move float"> -->
+                    <img src="vecteezy_ai-generative-cartoon-tomato-png_23858883.png" alt="Tomato" data-speed="-2" class="move float">
+                    <img src="vecteezy_bell-peppers-in-a-wicker-basket-3d-style_47937782.png" alt="Bell Peppers" data-speed="2" class="move float">
                     <img src="vecteezy_cartoon-cabbage-vegetable-illustration-isolated-on-the_48332635.png" alt="Cabbage" data-speed="-1" class="move float">
                     <img src="vecteezy_wonderful-creative-fresh-vegetables-arranged-on-table_57436431.png" alt="Fresh Vegetables" data-speed="1" class="move float">
                 </div>
@@ -95,12 +93,12 @@
 
         <section id="meal-planner" class="meal-planner">
             <h2 class="section-title">Meal Map</h2>
-            <div class="meal-planner__container bd-grid" style="display: flex; align-items: center; gap: 2rem;">
-                <video autoplay loop muted playsinline width="480" height="270" style="border-radius: 15px; flex-shrink: 0;">
+            <div class="meal-planner__container bd-grid" style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                <video autoplay loop muted playsinline width="480" height="270" style="border-radius: 15px; flex-shrink: 0; max-width: 100%; height: auto;">
                     <source src="meal_plan.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div style="flex: 1;">
+                <div style="flex: 1 1 300px; min-width: 250px;">
                     <p>Plan your perfect week by adding, deleting, and dragging dishes into each day. Generate ingredient checklists to stay organized and enjoy a balanced diet with ease.</p>
                     <div class="meal-planner-button-container">
 <a href="meal_2.html"><button class="meal-planner-button">Start Planning</button></a>
@@ -111,15 +109,15 @@
 
         <section id="recipe-sharing" class="recipe-sharing">
             <h2 class="section-title">Plated Stories</h2>
-            <div class="recipe-sharing__container bd-grid" style="display: flex; align-items: center; gap: 2rem;">
-                <div style="flex: 1;">
+            <div class="recipe-sharing__container bd-grid" style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1 1 300px; min-width: 250px;">
                     <p>Share your favorite recipes and connect with our lively community! Browse our recipe gallery to discover exciting new dishes, get inspired, leave comments, vote on your favorites, and save the ones you love.
                     </p>
                     <div class="recipe-sharing-button-container">
                         <a href="recipes_with_carousel_fixed.html" class="recipe-sharing-button">Explore Recipes</a>
                     </div>
                 </div>
-                <video autoplay loop muted playsinline width="480" height="270" style="border-radius: 15px; flex-shrink: 0;">
+                <video autoplay loop muted playsinline width="480" height="270" style="border-radius: 15px; flex-shrink: 0; max-width: 100%; height: auto;">
                     <source src="community.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -172,5 +170,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
-
