@@ -175,6 +175,9 @@
       animation-fill-mode: forwards;
       animation-duration: 0.7s;
       animation-timing-function: ease;
+      max-height: 150px;
+      overflow-y: auto;           /* enables vertical scrolling */
+      scroll-behavior: smooth;    /* optional: smooth scrolling */
     }
     .recipe-output.show {
       opacity: 1;
@@ -453,7 +456,8 @@
         <textarea id="ingredients" name="ingredients" placeholder="e.g. chicken, garlic, tomatoes" required></textarea>
         <button type="submit">Generate Recipe</button>
       </form>
-      <div class="recipe-output" id="recipeOutput" style="display:none;"></div>
+      <!-- <div class="recipe-output" id="recipeOutput" style="display:none;"></div> -->
+       <div class="recipe-output" id="recipeOutput" style="display:none;"></div>
       <button id="saveRecipeBtn" style="margin-top: 15px; padding: 14px; font-size: 1.2rem; background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c); background-size: 600% 600%; color: var(--first-color); border: none; border-radius: 30px; cursor: pointer; font-weight: 700; letter-spacing: 1.2px; box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3); display: none;">Save Recipe</button>
     </div>
 
@@ -463,7 +467,7 @@
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     const form = document.getElementById('promptForm');
     const output = document.getElementById('recipeOutput');
     const saveRecipeBtn = document.getElementById('saveRecipeBtn');
@@ -548,7 +552,62 @@
         savedNotification.style.opacity = '0';
       }, 2000);
     });
-  </script>
+  </script> -->
+  <script>
+document.getElementById('promptForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const inputText = document.getElementById('ingredients').value.trim();
+  if (!inputText) return;
+
+  const ingredients = inputText.split(',').map(item => item.trim());
+
+  try {
+    const response = await fetch('http://localhost:5000/api/recipes/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ingredients })
+    });
+
+    const recipes = await response.json();
+    console.log('Fetched recipes:', recipes);
+
+    const outputDiv = document.getElementById('recipeOutput');
+    outputDiv.innerHTML = ''; // Clear previous content
+
+    if (!recipes.length) {
+      outputDiv.innerHTML = '<p>No recipes found.</p>';
+    } else {
+      recipes.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card';
+        card.style.marginBottom = '20px';
+        card.innerHTML = `
+          <h3>${recipe.title}</h3>
+          <img src="${recipe.image}" width="250" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+          <p><strong>Used Ingredients:</strong> ${recipe.usedIngredientCount}</p>
+          <p><strong>Missed Ingredients:</strong> ${recipe.missedIngredientCount}</p>
+        `;
+        outputDiv.appendChild(card);
+      });
+    }
+
+    // ✅ Show the output box
+    outputDiv.style.display = 'block';
+    outputDiv.classList.add('show'); // << ADD THIS LINE
+
+    // ✅ Show the save button
+    document.getElementById('saveRecipeBtn').style.display = 'inline-block';
+
+  } catch (err) {
+    console.error('Error:', err);
+    alert('Error: ' + err.message);
+  }
+});
+</script>
+
+
+
   <style>
     #savedNotification {
       opacity: 0;
