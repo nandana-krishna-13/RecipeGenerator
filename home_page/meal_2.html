@@ -443,6 +443,8 @@ object-fit: cover;
   <button id="get-ingredients-trigger" onclick="document.getElementById('popup-card').style.display='flex'" style="position:fixed;bottom:20px;right:20px;z-index:999;">Get Ingredients</button>
 
   <script>
+  const userId = "testuser"; // change when login system is ready
+
   const dishIngredientsMap = {
     "Pancakes": ["Flour", "Eggs", "Milk"],
     "Omelette": ["Eggs", "Salt", "Butter"],
@@ -453,31 +455,46 @@ object-fit: cover;
   const checklist = document.getElementById('ingredient-checklist');
   const popupCard = document.getElementById('popup-card');
 
-  document.getElementById('generate-checklist-btn').onclick = () => {
-    const dishName = document.getElementById('popup-dish-name').value.trim();
-    if (!dishName) return;
-    const ingredients = dishIngredientsMap[dishName] || ["Ingredient 1", "Ingredient 2"];
+  document.getElementById('generate-checklist-btn').onclick = async () => {
+  const dishName = document.getElementById('popup-dish-name').value.trim();
+  if (!dishName) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/ingredients/${dishName}`);
+    const data = await res.json();
+
+    if (!data.ingredients || !data.ingredients.length) {
+      checklist.innerHTML = '<p>No ingredients found.</p>';
+      return;
+    }
+
     checklist.innerHTML = '';
-    ingredients.forEach(ing => {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('ingredient-item');
+    data.ingredients.forEach(ing => {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('ingredient-item');
 
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.id = `ing-${ing}`;
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `ing-${ing}`;
 
-  const label = document.createElement('label');
-  label.setAttribute('for', `ing-${ing}`);
-  label.textContent = ing;
+      const label = document.createElement('label');
+      label.setAttribute('for', `ing-${ing}`);
+      label.textContent = ing;
 
-  wrapper.appendChild(checkbox);
-  wrapper.appendChild(label);
-  checklist.appendChild(wrapper);
-});
+      wrapper.appendChild(checkbox);
+      wrapper.appendChild(label);
+      checklist.appendChild(wrapper);
+    });
 
     checklistSection.style.display = 'flex';
     popupCard.style.display = 'none';
-  };
+
+  } catch (err) {
+    console.error('Error:', err);
+    alert('Could not fetch ingredients.');
+  }
+};
+
 
   // Add dish logic
   const dishes = ["Pancakes", "Omelette", "Grilled Chicken"];
@@ -514,30 +531,49 @@ object-fit: cover;
     const zone = document.createElement('div');
     zone.className = 'dropzone';
     zone.ondragover = e => e.preventDefault();
-    zone.ondrop = e => {
-      e.preventDefault();
-      if (dragged) {
-        const meal = document.createElement('div');
-        meal.className = 'meal-item';
-        meal.textContent = dragged.textContent.replace('✕', '').trim();
+    zone.ondrop = async e => {
+  e.preventDefault();
+  if (dragged) {
+    const meal = document.createElement('div');
+    meal.className = 'meal-item';
+    meal.textContent = dragged.textContent.replace('✕', '').trim();
 
-        // Add close button to meal item
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'close-dish-btn';
-        closeBtn.textContent = '✕';
-        closeBtn.title = 'Remove dish';
-        closeBtn.addEventListener('click', () => {
-          meal.remove();
-        });
-        meal.appendChild(closeBtn);
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-dish-btn';
+    closeBtn.textContent = '✕';
+    closeBtn.title = 'Remove dish';
+    closeBtn.addEventListener('click', async () => {
+      meal.remove();
+      await saveMealPlan(); // Save on delete
+    });
 
-        zone.appendChild(meal);
-      }
-    };
+    meal.appendChild(closeBtn);
+    zone.appendChild(meal);
+
+    await saveMealPlan(); // Save on drop
+  }
+};
+
     dayDiv.appendChild(header);
     dayDiv.appendChild(zone);
     weekGrid.appendChild(dayDiv);
   });
+
+  async function saveMealPlan() {
+  const week = {};
+  document.querySelectorAll('.day').forEach(dayDiv => {
+    const day = dayDiv.querySelector('.day-header').textContent;
+    const dishes = Array.from(dayDiv.querySelectorAll('.meal-item')).map(el => el.childNodes[0].nodeValue.trim());
+    week[day] = dishes;
+  });
+
+  await fetch('http://localhost:5000/api/meals/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, week })
+  });
+}
+
   </script>
   <script>
     // Typing animation for the text below the header
@@ -554,11 +590,39 @@ object-fit: cover;
     }
   
     // Clear text and start typing animation on page load
-    window.onload = () => {
-      typingTextElem.textContent = "";
-      index = 0;
-      type();
-    };
+    window.onload = async () => {
+  typingTextElem.textContent = "";
+  index = 0;
+  type();
+
+  const res = await fetch(`http://localhost:5000/api/meals/${userId}`);
+  const week = await res.json();
+
+  if (week) {
+    document.querySelectorAll('.day').forEach(dayDiv => {
+      const day = dayDiv.querySelector('.day-header').textContent;
+      const zone = dayDiv.querySelector('.dropzone');
+      (week[day] || []).forEach(dish => {
+        const meal = document.createElement('div');
+        meal.className = 'meal-item';
+        meal.textContent = dish;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-dish-btn';
+        closeBtn.textContent = '✕';
+        closeBtn.title = 'Remove dish';
+        closeBtn.addEventListener('click', async () => {
+          meal.remove();
+          await saveMealPlan();
+        });
+
+        meal.appendChild(closeBtn);
+        zone.appendChild(meal);
+      });
+    });
+  }
+};
+
   </script>
   
 </body>
