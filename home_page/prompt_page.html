@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generate Recipe - Plateful.ai</title>
   <link rel="stylesheet" href="../../home_page/styles.css" />
+  <script src="https://unpkg.com/lottie-web@5.7.13/build/player/lottie.min.js"></script>
   <style>
     .logo-link {
       position: absolute;
       top: 1rem;
       left: 1.5rem;
-      display: inline-block;
       width: 150px;
-      height: auto;
       z-index: 1001;
     }
     .logo {
       width: 100%;
-      height: auto;
       display: block;
     }
     .logo-light {
@@ -29,174 +27,7 @@
     body.light-theme .logo-light {
       display: block;
     }
-    body {
-      background-color: var(--first-color);
-      margin: 0;
-      padding: 0;
-      font-family: var(--body-font);
-      color: var(--white-color);
-    }
-    .page-wrapper {
-      display: flex;
-      max-width: 1300px;
-      margin: 60px auto;
-      gap: 25px;
-      padding: 0 25px;
-    }
-    .side-container {
-      flex: 1;
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
-      padding: 25px;
-      color: var(--first-color-dark);
-      font-family: var(--body-font);
-      max-height: 650px;
-      overflow-y: auto;
-      transition: box-shadow 0.4s ease;
-    }
-    .side-container:hover {
-      box-shadow: 0 10px 25px rgba(255, 204, 92, 0.7);
-    }
-    .side-container h2 {
-      margin-top: 0;
-      font-weight: 700;
-      color: var(--first-color-dark);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.7rem;
-    }
-    .side-container ul {
-      list-style: none;
-      padding-left: 0;
-      color: var(--white-color);
-      margin-top: 12px;
-    }
-    .side-container ul li {
-      padding: 10px 14px;
-      border-bottom: 1px solid #444;
-      cursor: pointer;
-      transition: background-color 0.4s ease, color 0.4s ease;
-      border-radius: 6px;
-      font-size: 1.05rem;
-    }
-    .side-container ul li:hover {
-      background-color: var(--first-color-dark);
-      color: var(--first-color);
-      font-weight: 600;
-    }
-    .main-container {
-      flex: 2.5;
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
-      padding: 35px 50px;
-      color: var(--white-color);
-      font-family: var(--body-font);
-      display: flex;
-      flex-direction: column;
-      animation: fadeInUp 1s ease forwards;
-    }
-    .main-container h1 {
-      color: var(--first-color-dark);
-      text-align: center;
-      margin-bottom: 30px;
-      font-weight: 700;
-      font-size: 3rem;
-      letter-spacing: 1.2px;
-      text-shadow: 0 0 0px rgba(255, 204, 92, 0.7);
-    }
-    .prompt-form label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
-      color: #ccc;
-      font-size: 1.2rem;
-    }
-    .prompt-form textarea {
-      width: 100%;
-      height: 160px;
-      padding: 16px;
-      font-size: 1.2rem;
-      border: 1px solid #444;
-      border-radius: 10px;
-      resize: vertical;
-      font-family: var(--body-font);
-      background-color: #121212;
-      color: var(--white-color);
-      box-shadow: inset 0 0 6px rgba(255, 204, 92, 0.2);
-      transition: box-shadow 0.4s ease;
-    }
-    .prompt-form textarea::placeholder {
-      color: #888;
-    }
-    .prompt-form textarea:focus {
-      outline: none;
-      box-shadow: 0 0 10px var(--first-color-dark);
-      border-color: var(--first-color-dark);
-    }
-    .prompt-form button {
-      margin-top: 25px;
-      width: 100%;
-      padding: 18px;
-      font-size: 1.3rem;
-      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
-      background-size: 600% 600%;
-      color: var(--first-color);
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      transition: box-shadow 0.4s ease, transform 0.4s ease;
-      animation: none;
-      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
-    }
-    .prompt-form button:hover {
-      box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
-      transform: scale(1.05);
-    }
-    .recipe-output {
-      margin-top: 35px;
-      padding: 30px;
-      background-color: #121212;
-      border-radius: 10px;
-      border: 1px solid #444;
-      color: var(--white-color);
-      white-space: pre-wrap;
-      font-family: var(--body-font);
-      font-size: 1.2rem;
-      line-height: 1.7;
-      flex-grow: 1;
-      box-shadow: 0 0 12px rgba(255, 204, 92, 0.4);
-      opacity: 0;
-      transform: translateY(20px);
-      animation-fill-mode: forwards;
-      animation-duration: 0.7s;
-      animation-timing-function: ease;
-      max-height: 150px;
-      overflow-y: auto;           /* enables vertical scrolling */
-      scroll-behavior: smooth;    /* optional: smooth scrolling */
-    }
-    .recipe-output.show {
-      opacity: 1;
-      transform: translateY(0);
-      animation-name: fadeInUp;
-    }
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
 
-  <style>
     body {
       background-color: var(--first-color);
       margin: 0;
@@ -204,6 +35,7 @@
       font-family: var(--body-font);
       color: var(--white-color);
     }
+
     .page-wrapper {
       display: flex;
       max-width: 1300px;
@@ -211,6 +43,7 @@
       gap: 25px;
       padding: 0 25px;
     }
+
     .side-container {
       flex: 1;
       background-color: #1e1e1e;
@@ -218,14 +51,15 @@
       box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
       padding: 25px;
       color: var(--first-color-dark);
-      font-family: var(--body-font);
       max-height: 650px;
       overflow-y: auto;
       transition: box-shadow 0.4s ease;
     }
+
     .side-container:hover {
       box-shadow: 0 10px 25px rgba(255, 204, 92, 0.7);
     }
+
     .side-container h2 {
       margin-top: 0;
       font-weight: 700;
@@ -235,12 +69,14 @@
       gap: 10px;
       font-size: 1.7rem;
     }
+
     .side-container ul {
       list-style: none;
       padding-left: 0;
       color: var(--white-color);
       margin-top: 12px;
     }
+
     .side-container ul li {
       padding: 10px 14px;
       border-bottom: 1px solid #444;
@@ -249,11 +85,13 @@
       border-radius: 6px;
       font-size: 1.05rem;
     }
+
     .side-container ul li:hover {
       background-color: var(--first-color-dark);
       color: var(--first-color);
       font-weight: 600;
     }
+
     .main-container {
       flex: 2.5;
       background-color: #1e1e1e;
@@ -261,11 +99,12 @@
       box-shadow: 0 6px 15px rgba(255, 204, 92, 0.5);
       padding: 35px 50px;
       color: var(--white-color);
-      font-family: var(--body-font);
       display: flex;
       flex-direction: column;
       animation: fadeInUp 1s ease forwards;
+      min-height: 600px;
     }
+
     .main-container h1 {
       color: var(--first-color-dark);
       text-align: center;
@@ -275,6 +114,44 @@
       letter-spacing: 1.2px;
       text-shadow: 0 0 0px rgba(255, 204, 92, 0.7);
     }
+    #ingredients {
+      flex-grow: 1;
+      height: 40px;
+      resize: none;
+      padding: 8px 12px;
+      font-size: 1rem;
+      border-radius: 20px;
+      border: 1px solid #444;
+      background-color: #121212;
+      color: var(--white-color);
+      box-shadow: inset 0 0 6px rgba(255, 204, 92, 0.2);
+      font-family: var(--body-font);
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE */
+    }
+
+    #ingredients::placeholder {
+      color: #888;
+    }
+
+    #addIngredientBtn {
+      padding: 10px 12px;
+      font-size: 1rem;
+      border-radius: 20px;
+
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--first-color);
+      border: none;
+      cursor: pointer;
+      font-weight: 700;     
+      letter-spacing: 1.2px;
+      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+      margin-top: -4px;
+      width: fit-content;
+    }
+
+
     .prompt-form label {
       display: block;
       margin-bottom: 10px;
@@ -282,6 +159,7 @@
       color: #ccc;
       font-size: 1.2rem;
     }
+
     .prompt-form textarea {
       width: 100%;
       height: 160px;
@@ -295,15 +173,19 @@
       color: var(--white-color);
       box-shadow: inset 0 0 6px rgba(255, 204, 92, 0.2);
       transition: box-shadow 0.4s ease;
+      overflow: hidden;
     }
+
     .prompt-form textarea::placeholder {
       color: #888;
     }
+
     .prompt-form textarea:focus {
       outline: none;
       box-shadow: 0 0 10px var(--first-color-dark);
       border-color: var(--first-color-dark);
     }
+
     .prompt-form button {
       margin-top: 25px;
       width: 100%;
@@ -321,34 +203,232 @@
       animation: none;
       box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
     }
+
     .prompt-form button:hover {
       box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
       transform: scale(1.05);
     }
+
     .recipe-output {
-      margin-top: 35px;
-      padding: 30px;
-      background-color: #121212;
-      border-radius: 10px;
-      border: 1px solid #444;
-      color: var(--white-color);
-      white-space: pre-wrap;
-      font-family: var(--body-font);
-      font-size: 1.2rem;
-      line-height: 1.7;
-      flex-grow: 1;
-      box-shadow: 0 0 12px rgba(255, 204, 92, 0.4);
-      opacity: 0;
-      transform: translateY(20px);
-      animation-fill-mode: forwards;
-      animation-duration: 0.7s;
-      animation-timing-function: ease;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;         
+    margin-top: 0;        
+    background-color: #121212;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 204, 92, 0.4);
+    color: var(--white-color);
+    font-family: var(--body-font);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    height: 320px;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
     }
+    .recipe-output::-webkit-scrollbar {
+      width: 0;                   /* Chrome, Safari, Opera */
+      scrollbar-width: none;            /* Firefox */
+      -ms-overflow-style: none;         /* IE */
+    }
+
+    .recipe-output::-webkit-scrollbar {
+      display: none;                    /* Chrome, Safari, Opera */
+    }
+    
     .recipe-output.show {
       opacity: 1;
       transform: translateY(0);
       animation-name: fadeInUp;
     }
+    #generateBtn {
+      padding: 14px;
+      font-size: 1.2rem;
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--first-color);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+      margin-left: auto; /* ← pushes it to the right */
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    #buttonWrapper {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    #regenerateBtn,
+    #saveRecipeBtn {
+      padding: 14px 20px;
+      font-size: 1.2rem;
+      line-height: 1.2;
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--first-color);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+      width: 100%;
+      max-width: 240px;
+      height: 48px; 
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    #saveRecipeBtn {
+      padding: 14px;
+      font-size: 1.2rem;
+      background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+      background-size: 600% 600%;
+      color: var(--first-color);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+      display: none;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    #saveRecipeBtn:hover {
+      box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
+      transform: scale(1.05);
+    }
+    
+    #regenerateBtn:hover {
+      box-shadow: 0 5px 15px rgba(255, 204, 92, 0.5);
+      transform: scale(1.05);
+    }
+
+    .recipe-card {
+      background-color: #2c2c2c;
+      padding: 12px 16px; /* tighter padding */
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(255, 204, 92, 0.1);
+      color: #f1f1f1;
+      font-size: 1.05rem;
+      line-height: 1.5;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* use gap instead of margin */
+    }
+
+    .recipe-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 16px rgba(255, 204, 92, 0.3);
+    }
+
+
+    .recipe-card img {
+      margin: 12px 0 0 0;
+      max-width: 180px;   /* ↓ reduced width */
+      max-height: 180px;  /* ↓ optional height control */
+      height: auto;
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover; /* maintain aspect ratio without stretching */
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .recipe-card-image {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+
+    .recipe-card-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .recipe-card-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .recipe-card-text h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+      color: var(--first-color-dark);
+    }
+    .recipe-card-text p {
+      margin: 0;
+      font-size: 1rem;
+      color: #ccc;
+    }
+    
+    .recipe-output {
+      display: flex;
+      flex-direction: column;
+      background-color: #121212;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(255, 204, 92, 0.4);
+      color: var(--white-color);
+      font-family: var(--body-font);
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+    .recipe-card {
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #444;
+    }
+
+    
+
+    #loadingAnimation {
+      width: 100%;
+      height: 320px; /* Match approximate height of recipe-output */
+      margin: 0 auto;
+      display: block;
+      background-color: #ffffff; 
+      border-radius: 10px;        
+      box-shadow: 0 0 12px rgba(255, 204, 92, 0.4); 
+      padding: 20px;              
+    }
+
+
+
+    #loadingWrapper {
+      display: none;
+      width: 100%;
+      height: 320px; /* Or more if needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+
+    #loadingWrapper.show {
+      display: flex;
+    }
+
+
+
+
     @keyframes fadeInUp {
       0% {
         opacity: 0;
@@ -359,256 +439,39 @@
         transform: translateY(0);
       }
     }
-  </style>
-  <style>
+
     /* Responsive styles */
     @media (max-width: 1024px) {
-      .page-wrapper {
-        max-width: 90%;
-        padding: 0 15px;
-      }
-      .main-container {
-        padding: 25px 30px;
-      }
-      .side-container {
-        padding: 20px;
-      }
-      .main-container h1 {
-        font-size: 2.5rem;
-      }
-      .side-container h2 {
-        font-size: 1.5rem;
-      }
+      .page-wrapper { max-width: 90%; padding: 0 15px; }
+      .main-container { padding: 25px 30px; }
+      .side-container { padding: 20px; }
+      .main-container h1 { font-size: 2.5rem; }
+      .side-container h2 { font-size: 1.5rem; }
     }
+
     @media (max-width: 768px) {
       .page-wrapper {
         flex-direction: column;
         margin: 30px auto;
         gap: 20px;
       }
-      .side-container {
-        max-height: none;
-        height: auto;
-        padding: 15px;
-      }
-      .main-container {
-        flex: none;
-        padding: 20px;
-      }
-      .prompt-form textarea {
-        height: 140px;
-        font-size: 1.1rem;
-      }
-      .prompt-form button {
-        font-size: 1.1rem;
-        padding: 16px;
-      }
-      .main-container h1 {
-        font-size: 2rem;
-      }
-      .side-container h2 {
-        font-size: 1.3rem;
-      }
+      .side-container { max-height: none; height: auto; padding: 15px; }
+      .main-container { flex: none; padding: 20px; }
+      .prompt-form textarea { height: 140px; font-size: 1.1rem; }
+      .prompt-form button { font-size: 1.1rem; padding: 16px; }
+      .main-container h1 { font-size: 2rem; }
+      .side-container h2 { font-size: 1.3rem; }
     }
+
     @media (max-width: 480px) {
-      .page-wrapper {
-        padding: 0 10px;
-        gap: 15px;
-      }
-      .prompt-form textarea {
-        height: 120px;
-        font-size: 1rem;
-      }
-      .prompt-form button {
-        font-size: 1rem;
-        padding: 14px;
-      }
-      .main-container h1 {
-        font-size: 1.7rem;
-      }
-      .side-container h2 {
-        font-size: 1.1rem;
-      }
-      .side-container ul li {
-        font-size: 0.95rem;
-        padding: 8px 12px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="../../home_page/index.html" class="logo-link" aria-label="Home">
-      <img src="../../home_page/logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
-      <img src="../../home_page/logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
-    </a>
-  </header>
-  <div class="page-wrapper">
-    <div class="side-container">
-      <h2>Previous Queries</h2>
-      <ul id="previousQueries"></ul>
-    </div>
-
-    <div class="main-container">
-      <h1>Generate Your Recipe</h1>
-      <form class="prompt-form" id="promptForm">
-        <label for="ingredients">Enter ingredients or prompt:</label>
-        <textarea id="ingredients" name="ingredients" placeholder="e.g. chicken, garlic, tomatoes" required></textarea>
-        <button type="submit">Generate Recipe</button>
-      </form>
-      <!-- <div class="recipe-output" id="recipeOutput" style="display:none;"></div> -->
-       <div class="recipe-output" id="recipeOutput" style="display:none;"></div>
-      <button id="saveRecipeBtn" style="margin-top: 15px; padding: 14px; font-size: 1.2rem; background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c); background-size: 600% 600%; color: var(--first-color); border: none; border-radius: 30px; cursor: pointer; font-weight: 700; letter-spacing: 1.2px; box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3); display: none;">Save Recipe</button>
-    </div>
-
-    <div class="side-container">
-      <h2><span style="margin-right: 8px;">📖</span>Saved Recipes</h2>
-      <ul id="previousRecipes"></ul>
-    </div>
-  </div>
-
-  <!-- <script>
-    const form = document.getElementById('promptForm');
-    const output = document.getElementById('recipeOutput');
-    const saveRecipeBtn = document.getElementById('saveRecipeBtn');
-    const previousQueriesList = document.getElementById('previousQueries');
-    const previousRecipesList = document.getElementById('previousRecipes');
-
-    // Load previous queries and recipes from localStorage
-    let previousQueries = JSON.parse(localStorage.getItem('previousQueries')) || [];
-    let previousRecipes = JSON.parse(localStorage.getItem('previousRecipes')) || [];
-
-    function renderHistory() {
-      previousQueriesList.innerHTML = '';
-      previousRecipesList.innerHTML = '';
-
-      previousQueries.forEach((query, index) => {
-        const li = document.createElement('li');
-        li.textContent = query;
-        li.style.padding = '5px 0';
-        previousQueriesList.appendChild(li);
-      });
-
-      previousRecipes.forEach((recipe, index) => {
-        const li = document.createElement('li');
-        li.textContent = recipe;
-        li.style.padding = '5px 0';
-        previousRecipesList.appendChild(li);
-      });
+      .page-wrapper { padding: 0 10px; gap: 15px; }
+      .prompt-form textarea { height: 120px; font-size: 1rem; }
+      .prompt-form button { font-size: 1rem; padding: 14px; }
+      .main-container h1 { font-size: 1.7rem; }
+      .side-container h2 { font-size: 1.1rem; }
+      .side-container ul li { font-size: 0.95rem; padding: 8px 12px; }
     }
 
-    renderHistory();
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const ingredients = document.getElementById('ingredients').value.trim();
-      if (!ingredients) {
-        alert('Please enter some ingredients or a prompt.');
-        return;
-      }
-      // For demonstration, just echo the input as "Generated Recipe"
-      const generatedRecipe = 'Generating recipe for: ' + ingredients + '\\n\\n' +
-        '1. Prepare your ingredients.\\n' +
-        '2. Follow the cooking steps.\\n' +
-        '3. Enjoy your meal!';
-
-      output.style.display = 'block';
-      output.classList.add('show');
-      output.textContent = generatedRecipe;
-      saveRecipeBtn.style.display = 'inline-block';
-
-      // Save to history
-      previousQueries.unshift(ingredients);
-
-      // Keep only last 10 entries
-      if (previousQueries.length > 10) previousQueries.pop();
-
-      localStorage.setItem('previousQueries', JSON.stringify(previousQueries));
-      localStorage.setItem('previousRecipes', JSON.stringify(previousRecipes));
-
-      renderHistory();
-    });
-
-    saveRecipeBtn.addEventListener('click', function() {
-      const recipeText = output.textContent.trim();
-      if (!recipeText) {
-        alert('No recipe to save.');
-        return;
-      }
-      previousRecipes.unshift(recipeText);
-
-      // Keep only last 10 entries
-      if (previousRecipes.length > 10) previousRecipes.pop();
-
-      localStorage.setItem('previousRecipes', JSON.stringify(previousRecipes));
-      renderHistory();
-
-      saveRecipeBtn.style.display = 'none';
-
-      // Show styled saved notification
-      const savedNotification = document.getElementById('savedNotification');
-      savedNotification.style.opacity = '1';
-      setTimeout(() => {
-        savedNotification.style.opacity = '0';
-      }, 2000);
-    });
-  </script> -->
-  <script>
-document.getElementById('promptForm').addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const inputText = document.getElementById('ingredients').value.trim();
-  if (!inputText) return;
-
-  const ingredients = inputText.split(',').map(item => item.trim());
-
-  try {
-    const response = await fetch('http://localhost:5000/api/recipes/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ingredients })
-    });
-
-    const recipes = await response.json();
-    console.log('Fetched recipes:', recipes);
-
-    const outputDiv = document.getElementById('recipeOutput');
-    outputDiv.innerHTML = ''; // Clear previous content
-
-    if (!recipes.length) {
-      outputDiv.innerHTML = '<p>No recipes found.</p>';
-    } else {
-      recipes.forEach(recipe => {
-        const card = document.createElement('div');
-        card.className = 'recipe-card';
-        card.style.marginBottom = '20px';
-        card.innerHTML = `
-          <h3>${recipe.title}</h3>
-          <img src="${recipe.image}" width="250" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-          <p><strong>Used Ingredients:</strong> ${recipe.usedIngredientCount}</p>
-          <p><strong>Missed Ingredients:</strong> ${recipe.missedIngredientCount}</p>
-        `;
-        outputDiv.appendChild(card);
-      });
-    }
-
-    // ✅ Show the output box
-    outputDiv.style.display = 'block';
-    outputDiv.classList.add('show'); // << ADD THIS LINE
-
-    // ✅ Show the save button
-    document.getElementById('saveRecipeBtn').style.display = 'inline-block';
-
-  } catch (err) {
-    console.error('Error:', err);
-    alert('Error: ' + err.message);
-  }
-});
-</script>
-
-
-
-  <style>
     #savedNotification {
       opacity: 0;
       transition: opacity 0.4s ease;
@@ -630,6 +493,191 @@ document.getElementById('promptForm').addEventListener('submit', async function 
       z-index: 1000;
     }
   </style>
+  
+</head>
+<body>
+  <header>
+    <a href="../../home_page/index.html" class="logo-link" aria-label="Home">
+      <img src="../../home_page/logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
+      <img src="../../home_page/logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
+    </a>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="side-container">
+      <h2>Previous Queries</h2>
+      <ul id="previousQueries"></ul>
+    </div>
+
+    <div class="main-container">
+      <h1>Generate Your Recipe</h1>
+      <div id="loadingWrapper" style="display: flex;">
+        <div id="loadingAnimation"></div>
+      </div>
+
+      <div class="recipe-output show" id="recipeOutput" style="display: none;">
+        <div id="recipeCards"></div>
+      </div>
+
+      <div id="ingredientList" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; margin-top: 10px;"></div>
+
+      <div style="margin-top: auto;">
+        <form class="prompt-form" id="promptForm" style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <textarea id="ingredients" placeholder="e.g. chicken, garlic, tomatoes"></textarea>
+            <button type="button" id="addIngredientBtn">Add Ingredient</button>
+          </div>
+
+          <button type="submit" id="generateBtn">Generate Recipe</button>
+        </form>
+        <div id="buttonWrapper" style="display: none; gap: 15px; margin-top: 15px;">
+          <button id="regenerateBtn">Regenerate Recipe</button>
+          <button id="saveRecipeBtn" style="display: none;">Save Recipe</button>
+        </div>
+
+
+
+      </div>
+
+      <button id="saveRecipeBtn" style="margin-top: 15px; padding: 14px; font-size: 1.2rem; border-radius: 30px; display: none;">Save Recipe</button>
+    </div>
+
+    <div class="side-container">
+      <h2><span style="margin-right: 8px;">📖</span>Saved Recipes</h2>
+      <ul id="previousRecipes"></ul>
+    </div>
+  </div>
+
   <div id="savedNotification">Saved</div>
+
+  <script>
+    const ingredientInput = document.getElementById('ingredients');
+    const ingredientList = document.getElementById('ingredientList');
+    let addedIngredients = [];
+
+    document.getElementById('addIngredientBtn').addEventListener('click', () => {
+      const ingredient = ingredientInput.value.trim();
+      if (!ingredient || addedIngredients.includes(ingredient)) return;
+
+      addedIngredients.push(ingredient);
+
+      const item = document.createElement('span');
+      item.textContent = ingredient;
+      item.style = 'padding: 6px 12px; background-color: #333; color: white; border-radius: 20px; display: flex; align-items: center; gap: 8px;';
+      
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'X';
+      removeBtn.style = 'background: none; border: none; color: #ffcc5c; cursor: pointer; font-weight: bold;';
+
+      removeBtn.onclick = () => {
+        ingredientList.removeChild(item);
+        addedIngredients = addedIngredients.filter(i => i !== ingredient);
+      };
+
+      item.appendChild(removeBtn);
+      ingredientList.appendChild(item);
+      ingredientInput.value = '';
+    });
+    document.getElementById('ingredients').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // prevent newline in textarea
+        document.getElementById('addIngredientBtn').click(); // trigger add
+      }
+    });
+    
+    document.getElementById('promptForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const generateBtn = document.getElementById('generateBtn');
+
+      document.getElementById('generateBtn').style.display = 'none';
+      document.getElementById('buttonWrapper').style.display = 'flex';
+      document.getElementById('saveRecipeBtn').style.display = 'inline-block';
+
+      if (generateBtn.textContent === "Regenerate Recipe") {
+        location.reload();
+        return;
+      }
+
+      if (addedIngredients.length === 0) {
+        alert('Please add at least one ingredient.');
+        return;
+      }
+
+      const ingredients = addedIngredients;
+
+      try {
+        // Already playing on page load — just continue
+        const response = await fetch('http://localhost:5000/api/recipes/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ingredients })
+        });
+
+        const recipes = await response.json();
+
+        // ✅ Hide animation and show output
+        loadingAnim.stop();
+        loadingWrapper.style.display = 'none';
+        document.getElementById('recipeOutput').style.display = 'block';
+
+        const recipeCardsContainer = document.getElementById('recipeCards');
+        recipeCardsContainer.innerHTML = '';
+
+        recipes.forEach(recipe => {
+          const card = document.createElement('div');
+          card.className = 'recipe-card';
+          card.innerHTML = `
+            <div style="display: flex; gap: 15px; align-items: center;">
+              <img src="${recipe.image}" width="100" height="100" style="border-radius: 10px; object-fit: cover;" />
+              <div class="recipe-card-text">
+                <h3>${recipe.title}</h3>
+                <p><strong>Used Ingredients:</strong> ${recipe.usedIngredientCount}</p>
+                <p><strong>Missed Ingredients:</strong> ${recipe.missedIngredientCount}</p>
+              </div>
+            </div>
+          `;
+          recipeCardsContainer.appendChild(card);
+        });
+
+        document.getElementById('generateBtn').textContent = 'Regenerate Recipe';
+        document.getElementById('saveRecipeBtn').style.display = 'inline-block';
+
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Error: ' + err.message);
+        loadingAnim.stop();
+        loadingWrapper.style.display = 'none';
+      }
+    });
+
+    document.getElementById('regenerateBtn').addEventListener('click', () => {
+      location.reload(); // or reset logic
+    });
+
+    const loadingWrapper = document.getElementById('loadingWrapper');
+    console.log('🎯 Attempting to load Lottie animation...');
+    const loadingAnim = lottie.loadAnimation({
+      container: document.getElementById('loadingAnimation'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'food-loading.json'
+    });
+    loadingAnim.addEventListener('DOMLoaded', () => {
+      console.log('✅ Lottie animation loaded successfully.');
+    });
+
+
+    loadingAnim.addEventListener('data_ready', () => {
+      console.log("✅ Lottie animation loaded successfully.");
+    });
+
+    loadingAnim.addEventListener('data_failed', () => {
+      console.error("❌ Failed to load Lottie animation. Check file path or JSON validity.");
+    });
+
+
+  </script>
 </body>
 </html>
