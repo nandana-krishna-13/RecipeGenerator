@@ -200,11 +200,30 @@
       max-width: 90vw;
     }
 
+    .ingredient-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  max-width: 400px;
+}
+
     .ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+    /* .ingredient-item {
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
-    }
+    } */
 
     /* .ingredient-item input[type="checkbox"] {
       margin-right: 0.5rem;
@@ -622,6 +641,27 @@ object-fit: cover;
     });
   }
 };
+
+const renderIngredients = (ingredients) => {
+  const listContainer = document.getElementById('ingredient-list');
+  listContainer.innerHTML = ''; // clear previous
+
+  ingredients.forEach(item => {
+    const label = document.createElement('label');
+    label.className = 'ingredient-item';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+
+    const span = document.createElement('span');
+    span.textContent = item;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    listContainer.appendChild(label);
+  });
+};
+
 
   </script>
   

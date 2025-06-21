@@ -26,11 +26,15 @@ const recipeRoutes = require('./routes/recipeRoutes');
 const mealRoutes = require('./routes/mealRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const sharingRoutes = require('./routes/sharingRoutes'); // ✅ NEW
+const chatbotRoutes = require('./routes/chatbotRoutes');
+
+
 
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/meals', mealRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 app.use('/api/shared', sharingRoutes); // ✅ NEW
+app.use('/api/chatbot', chatbotRoutes);  // ✅ New chatbot route
 
 // Start Server
 const PORT = process.env.PORT || 5000;

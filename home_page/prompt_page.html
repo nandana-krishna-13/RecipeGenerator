@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="../../home_page/styles.css" />
   <script src="https://unpkg.com/lottie-web@5.7.13/build/player/lottie.min.js"></script>
   <style>
+    * {
+  text-align: justify;
+    }
     .logo-link {
       position: absolute;
       top: 1rem;
@@ -138,6 +141,7 @@
       padding: 10px 12px;
       font-size: 1rem;
       border-radius: 20px;
+      text-align: center;
 
       background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
       background-size: 600% 600%;
@@ -254,6 +258,7 @@
       letter-spacing: 1.2px;
       box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
       margin-left: auto; /* ← pushes it to the right */
+      text-align: center;
     }
     .action-buttons {
       display: flex;
@@ -287,6 +292,7 @@
       max-width: 240px;
       height: 48px; 
       transition: box-shadow 0.4s ease, transform 0.4s ease;
+      text-align: center;
     }
 
     #saveRecipeBtn {
@@ -492,6 +498,195 @@
       width: 80px;
       z-index: 1000;
     }
+
+    :root {
+  --bubble-duration: 0.3s;
+}
+
+/* Floating Chatbot Icon */
+#chatbotIcon {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+  font-size: 2rem;
+  padding: 14px 18px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(255, 204, 92, 0.6);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+#chatbotIcon:hover {
+  transform: scale(1.1);
+}
+
+/* Popup Chatbot */
+#chatbotPopup {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  width: 420px;
+  height: 520px;
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(255, 204, 92, 0.5);
+  display: none;
+  flex-direction: column;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+/* Drag handle (entire header) */
+.chatbot-header {
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: move;
+}
+
+/* Close Button */
+.chatbot-close {
+  background: none;
+  border: none;
+  color: var(--first-color);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+.chatbot-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Message List */
+#chatbotMessages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--white-color);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Base bubble style */
+.chat-message {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(255, 204, 92, 0.2);
+  word-wrap: break-word;
+  opacity: 0;
+  animation: fadeInBubble var(--bubble-duration) ease forwards;
+}
+
+/* User bubble */
+.chat-message.user {
+  align-self: flex-end;
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+  border-bottom-right-radius: 0;
+}
+
+/* Bot bubble */
+.chat-message.bot {
+  align-self: flex-start;
+  background-color: #2a2a2a;
+  color: var(--white-color);
+  border-bottom-left-radius: 0;
+}
+
+/* Loading dots animation */
+.chat-message.loading::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.2s infinite;
+}
+
+@keyframes dots {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
+  100% { content: ""; }
+}
+
+@keyframes fadeInBubble {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Input bar */
+.chatbot-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #444;
+  background-color: #121212;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #444;
+  background-color: #1e1e1e;
+  color: var(--white-color);
+  font-family: var(--body-font);
+}
+
+.chatbot-input button {
+  background: linear-gradient(270deg, #ffcc5c, #81968c, #ffcc5c);
+  background-size: 600% 600%;
+  border: none;
+  border-radius: 50%;
+  color: var(--first-color);
+  padding: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 204, 92, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.chatbot-input button:hover {
+  transform: scale(1.1);
+}
+
+#chatbotMessages::-webkit-scrollbar { display: none; }
+
+.voice-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #ffcc5c;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.voice-btn:hover {
+  transform: scale(1.2);
+}
+
+
   </style>
   
 </head>
@@ -549,6 +744,26 @@
   </div>
 
   <div id="savedNotification">Saved</div>
+
+ <!-- Floating Chatbot Icon -->
+<div id="chatbotIcon" onclick="toggleChatbot()">👨‍🍳</div>
+
+<!-- Chatbot Popup -->
+<div id="chatbotPopup">
+  <div class="chatbot-header" id="chatbotHeader">
+    <span>ChatBot</span>
+    <button class="chatbot-close" onclick="toggleChatbot()">✖</button>
+  </div>
+  <div id="chatbotMessages"></div>
+  <div class="chatbot-input">
+    <input type="text" id="chatbotInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">📤</button>
+    <button onclick="startVoiceInput()">🎙️</button>
+    <button onclick="saveChat()">💾</button>
+  </div>
+</div>
+
+
 
   <script>
     const ingredientInput = document.getElementById('ingredients');
@@ -679,5 +894,260 @@
 
 
   </script>
+  <script>
+  async function sendMessageToBot(message) {
+    const res = await fetch('http://localhost:5000/api/chatbot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    });
+    const data = await res.json();
+    return data.reply;
+  }
+
+  function toggleChatbot() {
+    const popup = document.getElementById('chatbotPopup');
+    const messages = document.getElementById('chatbotMessages');
+    popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+
+    if (popup.style.display === 'flex' && messages.childElementCount === 0) {
+      addBotMessage("Hi there! How can I help you today?");
+    }
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chatbotInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    addUserMessage(msg);
+    input.value = '';
+    addBotLoading();
+
+    try {
+      const reply = await sendMessageToBot(msg);
+      replaceBotLoading(reply);
+    } catch (err) {
+      replaceBotLoading("❌ Error: Unable to get response.");
+      console.error(err);
+    }
+  }
+
+  function addUserMessage(text) {
+    const chat = document.getElementById('chatbotMessages');
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chat-message user';
+    userMsg.textContent = text;
+    chat.appendChild(userMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function addBotMessage(text) {
+    const chat = document.getElementById('chatbotMessages');
+    const botMsg = document.createElement('div');
+    botMsg.className = 'chat-message bot';
+    botMsg.textContent = text;
+    chat.appendChild(botMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function addBotLoading() {
+    const chat = document.getElementById('chatbotMessages');
+    const loading = document.createElement('div');
+    loading.className = 'chat-message bot loading';
+    loading.setAttribute('id', 'loadingBubble');
+    loading.textContent = "🤖";
+    chat.appendChild(loading);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function formatBotReply(text) {
+  // Replace newlines with <br> for line breaks
+  text = text.replace(/\n/g, '<br>');
+
+  // Optionally detect bullet points and bold sections
+  text = text.replace(/^- (.+)/gm, '<li>$1</li>');
+  if (text.includes('<li>')) {
+    text = `<ul style="padding-left: 20px;">${text}</ul>`;
+  }
+
+  // Basic bold formatting like **bold**
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  return text;
+}
+
+function speakText(button) {
+  const text = button.previousElementSibling.innerText;
+  const utterance = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(utterance);
+}
+
+
+  function replaceBotLoading(responseText) {
+  const loading = document.getElementById('loadingBubble');
+  if (loading) {
+    loading.classList.remove('loading');
+    loading.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span>${formatBotReply(responseText)}</span>
+        <button onclick="speakText(this)" class="voice-btn" title="Speak">&#128264;</button>
+      </div>
+    `;
+    loading.removeAttribute('id');
+  }
+}
+
+
+  function startVoiceInput() {
+  // Check if browser supports SpeechRecognition
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice recognition not supported in this browser.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  // Start recognition
+  recognition.start();
+
+  recognition.onstart = () => {
+    console.log("🎤 Listening...");
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    console.log("📝 You said:", transcript);
+
+    // Set the recognized text into input box
+    const inputBox = document.getElementById('chatbotInput');
+    inputBox.value = transcript;
+
+    // Optional: Automatically send to chatbot
+    document.getElementById('sendButton').click(); // Replace with your send function if different
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event.error);
+    alert("🎤 Error with voice input: " + event.error);
+  };
+}
+
+
+  function saveChat() {
+    alert("💾 Chat saved (not really).");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById('chatbotInput');
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // document.getElementById('chatbotSendBtn').addEventListener('click', sendMessage);
+
+    dragElement(document.getElementById("chatbotPopup"));
+  });
+
+  function dragElement(elmnt) {
+    const header = document.getElementById("chatbotHeader");
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    if (header) {
+      header.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      elmnt.style.bottom = "auto";
+      elmnt.style.right = "auto";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+let currentUtterance = null;
+let currentButton = null;
+let isPaused = false;
+
+function toggleVoice(button, text) {
+  // If same button and paused -> resume
+  if (speechSynthesis.paused && button === currentButton) {
+    speechSynthesis.resume();
+    button.innerHTML = "⏸️";
+    isPaused = false;
+    return;
+  }
+
+  // If same button and speaking -> pause
+  if (speechSynthesis.speaking && !speechSynthesis.paused && button === currentButton) {
+    speechSynthesis.pause();
+    button.innerHTML = "▶️";
+    isPaused = true;
+    return;
+  }
+
+  // If same button and just resumed -> stop on click again
+  if (speechSynthesis.speaking && isPaused === false && button === currentButton) {
+    speechSynthesis.cancel();
+    resetButton();
+    return;
+  }
+
+  // New text or different button -> cancel and speak fresh
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  currentUtterance = utterance;
+  currentButton = button;
+  isPaused = false;
+
+  button.innerHTML = "⏸️";
+
+  utterance.onend = () => resetButton();
+  utterance.oncancel = () => resetButton();
+
+  speechSynthesis.speak(utterance);
+}
+
+function resetButton() {
+  if (currentButton) currentButton.innerHTML = "🔊";
+  currentUtterance = null;
+  currentButton = null;
+  isPaused = false;
+}
+
+function escapeQuotes(str) {
+  return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/"/g, "&quot;");
+}
+
+</script>
+
+
 </body>
 </html>
