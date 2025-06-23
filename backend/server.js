@@ -27,6 +27,7 @@ const mealRoutes = require('./routes/mealRoutes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const sharingRoutes = require('./routes/sharingRoutes'); // ✅ NEW
 const chatbotRoutes = require('./routes/chatbotRoutes');
+const queryRoutes = require('./routes/queryRoutes');
 
 
 
@@ -35,6 +36,8 @@ app.use('/api/meals', mealRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 app.use('/api/shared', sharingRoutes); // ✅ NEW
 app.use('/api/chatbot', chatbotRoutes);  // ✅ New chatbot route
+app.use('/api/queries', queryRoutes);
+
 
 // Start Server
 const PORT = process.env.PORT || 5000;

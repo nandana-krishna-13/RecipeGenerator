@@ -855,7 +855,7 @@
  <!-- Floating Chatbot Icon -->
 <div id="chatbotIcon" onclick="toggleChatbot()" aria-label="Chatbot Toggle">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 119.35" width="32" height="32" fill="#ffffff">
-    <title>chatbot</title>
+    <title>Plateful Assistant</title>
     <path d="M57.49,29.2V23.53a14.41,14.41,0,0,1-2-.93A12.18,12.18,0,0,1,50.44,7.5a12.39,12.39,0,0,1,2.64-3.95A12.21,12.21,0,0,1,57,.92,12,12,0,0,1,61.66,0,12.14,12.14,0,0,1,72.88,7.5a12.14,12.14,0,0,1,0,9.27,12.08,12.08,0,0,1-2.64,3.94l-.06.06a12.74,12.74,0,0,1-2.36,1.83,11.26,11.26,0,0,1-2,.93V29.2H94.3a15.47,15.47,0,0,1,15.42,15.43v2.29H115a7.93,7.93,0,0,1,7.9,7.91V73.2A7.93,7.93,0,0,1,115,81.11h-5.25v2.07A15.48,15.48,0,0,1,94.3,98.61H55.23L31.81,118.72a2.58,2.58,0,0,1-3.65-.29,2.63,2.63,0,0,1-.63-1.85l1.25-18h-.21A15.45,15.45,0,0,1,13.16,83.18V81.11H7.91A7.93,7.93,0,0,1,0,73.2V54.83a7.93,7.93,0,0,1,7.9-7.91h5.26v-2.3A15.45,15.45,0,0,1,28.57,29.2H57.49ZM82.74,47.32a9.36,9.36,0,1,1-9.36,9.36,9.36,9.36,0,0,1,9.36-9.36Zm-42.58,0a9.36,9.36,0,1,1-9.36,9.36,9.36,9.36,0,0,1,9.36-9.36Zm6.38,31.36a2.28,2.28,0,0,1-.38-.38,2.18,2.18,0,0,1-.52-1.36,2.21,2.21,0,0,1,.46-1.39,2.4,2.4,0,0,1,.39-.39,3.22,3.22,0,0,1,3.88-.08A22.36,22.36,0,0,0,56,78.32a14.86,14.86,0,0,0,5.47,1A16.18,16.18,0,0,0,67,78.22,25.39,25.39,0,0,0,72.75,75a3.24,3.24,0,0,1,3.89.18,3,3,0,0,1,.37.41,2.22,2.22,0,0,1,.42,1.4,2.33,2.33,0,0,1-.58,1.35,2.29,2.29,0,0,1-.43.38,30.59,30.59,0,0,1-7.33,4,22.28,22.28,0,0,1-7.53,1.43A21.22,21.22,0,0,1,54,82.87a27.78,27.78,0,0,1-7.41-4.16l0,0ZM94.29,34.4H28.57A10.26,10.26,0,0,0,18.35,44.63V83.18A10.26,10.26,0,0,0,28.57,93.41h3.17a2.61,2.61,0,0,1,2.41,2.77l-1,14.58L52.45,94.15a2.56,2.56,0,0,1,1.83-.75h40a10.26,10.26,0,0,0,10.22-10.23V44.62A10.24,10.24,0,0,0,94.29,34.4Z"/>
   </svg>
 </div>
@@ -864,7 +864,7 @@
 <!-- Chatbot Popup -->
 <div id="chatbotPopup">
   <div class="chatbot-header" id="chatbotHeader">
-    <span>ChatBot</span>
+    <span>Plateful Assistant</span>
     <button class="chatbot-close" onclick="toggleChatbot()">✖</button>
   </div>
   <div id="chatbotMessages"></div>
@@ -1017,32 +1017,56 @@
     });
 
 
-  </script>
-  <script>
+  let currentSessionId = null;
+  let isFirstChatMessage = true;
+  let isNewChat = true;
+  
+
   async function sendMessageToBot(message) {
     const res = await fetch('http://localhost:5000/api/chatbot', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({
+        message,
+        sessionId: currentSessionId,
+        saveToHistory: isFirstChatMessage && !currentSessionId // ✅ only on first message
+      })
     });
+
     const data = await res.json();
+
+    if (data.sessionId) {
+      currentSessionId = data.sessionId;
+    }
+
+    if (isFirstChatMessage) {
+      isFirstChatMessage = false;           // ✅ only once per chat session
+      loadPreviousQueries();                // ✅ refresh sidebar
+    }
+
     return data.reply;
   }
+
+
+
+
 
   function toggleChatbot(preserveChat = false) {
     const popup = document.getElementById('chatbotPopup');
     const messages = document.getElementById('chatbotMessages');
     const wasClosed = popup.style.display !== 'flex';
 
-    // Toggle popup
     popup.style.display = wasClosed ? 'flex' : 'none';
 
-    // If opened and not preserving old chat, clear it
     if (wasClosed && !preserveChat) {
       messages.innerHTML = '';
       addBotMessage("Hi there! How can I help you today?");
+      currentSessionId = null;
+      isFirstChatMessage = true; // ✅ Only set true on fresh start
     }
   }
+
+
 
 
 
@@ -1056,16 +1080,14 @@
     addBotLoading();
 
     try {
-      const reply = await sendMessageToBot(msg);
+      const reply = await sendMessageToBot(msg); // centralized logic
       replaceBotLoading(reply);
-
-      // ✅ Update Previous Queries list instantly
-      loadPreviousQueries();
     } catch (err) {
       replaceBotLoading("❌ Error: Unable to get response.");
       console.error(err);
     }
   }
+
 
 
   function addUserMessage(text) {
@@ -1164,26 +1186,12 @@
               </svg>
             </button>
 
-            <button onclick="saveChatFromBot(\`${escapeQuotes(responseText)}\`)" class="icon-btn" title="Save" style="width: 28px; height: 28px;">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon-svg" viewBox="0 0 16 16">
-                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-              </svg>
-            </button>
           </div>
         </div>
       `;
 
       loading.removeAttribute('id');
     }
-  }
-
-
-
-
-  function saveChatFromBot(text) {
-    console.log("💾 Saving chat:", text);
-    alert("✅ Recipe saved!");
-    // Optional: push to saved chat array or send to backend
   }
 
 
@@ -1227,9 +1235,6 @@
 }
 
 
-  function saveChat() {
-    alert("💾 Chat saved (not really).");
-  }
 
   document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById('chatbotInput');
@@ -1272,18 +1277,50 @@
       // Main text
       const span = document.createElement('span');
       span.textContent = entry.question;
-      span.onclick = () => {
+      span.onclick = async () => {
         toggleChatbot(true);
         const chat = document.getElementById('chatbotMessages');
         chat.innerHTML = '';
-        addUserMessage(entry.question);
 
-        const botMsg = document.createElement('div');
-        botMsg.className = 'chat-message bot';
-        botMsg.innerHTML = formatBotReply(entry.response);
-        chat.appendChild(botMsg);
-        chat.scrollTop = chat.scrollHeight;
+        if (!entry.sessionId) {
+          // fallback for old entries
+          addUserMessage(entry.question);
+
+          const botMsg = document.createElement('div');
+          botMsg.className = 'chat-message bot';
+          botMsg.innerHTML = formatBotReply(entry.response);
+          chat.appendChild(botMsg);
+          chat.scrollTop = chat.scrollHeight;
+          return;
+        }
+
+        try {
+          const sessionRes = await fetch(`http://localhost:5000/api/chatbot/session/${entry.sessionId}`);
+          if (!sessionRes.ok) throw new Error("Session fetch failed");
+          const sessionMessages = await sessionRes.json();
+
+          sessionMessages.forEach(msg => {
+            if (msg.role === 'user') {
+              addUserMessage(msg.content);
+            } else {
+              const botMsg = document.createElement('div');
+              botMsg.className = 'chat-message bot';
+              botMsg.innerHTML = formatBotReply(msg.content);
+              chat.appendChild(botMsg);
+            }
+          });
+
+          chat.scrollTop = chat.scrollHeight;
+          currentSessionId = entry.sessionId;
+          isFirstChatMessage = false; // ✅ Prevent saving again on follow-up
+
+        } catch (err) {
+          console.error("❌ Failed to load session messages:", err);
+          alert("❌ Failed to load this chat.");
+        }
       };
+
+
 
       // Delete icon
       const del = document.createElement('span');
@@ -1297,8 +1334,6 @@
 
       del.onclick = async (e) => {
         e.stopPropagation(); // Prevent triggering chatbot open
-        const confirmed = confirm("Are you sure you want to delete this query?");
-        if (!confirmed) return;
 
         try {
           const res = await fetch(`http://localhost:5000/api/chatbot/${entry._id}`, {
