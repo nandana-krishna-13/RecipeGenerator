@@ -95,6 +95,50 @@
       font-weight: 600;
     }
 
+    #previousQueries li {
+      position: relative;
+      padding-right: 30px;
+    }
+
+    #previousQueries li .delete-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+      color: #ff4d4d;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #previousQueries li:hover .delete-icon {
+      display: inline;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .query-delete {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    li:hover .query-delete {
+      opacity: 1;
+    }
+
+
     .main-container {
       flex: 2.5;
       background-color: #1e1e1e;
@@ -508,20 +552,30 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: var(--first-color-dark);
-  color: var(--first-color);
-  font-size: 2rem;
-  padding: 14px 18px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--first-color-dark, #ffcc5c);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(255, 204, 92, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #chatbotIcon:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 204, 92, 0.6);
 }
+
+#chatbotIcon svg {
+  width: 32px;
+  height: 32px;
+  fill: #1e1e1e;
+}
+
 
 /* Popup Chatbot */
 #chatbotPopup {
@@ -538,6 +592,59 @@
   z-index: 1001;
   overflow: hidden;
 }
+
+
+.send-btn {
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #ffcc5c;
+}
+
+.send-btn:hover {
+  background-color: rgba(255, 204, 92, 0.1);
+}
+
+.send-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: currentColor;
+}
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  color: #ffcc5c;
+  transition: background-color 0.3s ease;
+}
+
+.icon-btn:hover {
+  background-color: rgba(255, 204, 92, 0.1);
+}
+
+.icon-svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
 
 /* Drag handle (entire header) */
 .chatbot-header {
@@ -746,7 +853,13 @@
   <div id="savedNotification">Saved</div>
 
  <!-- Floating Chatbot Icon -->
-<div id="chatbotIcon" onclick="toggleChatbot()">👨‍🍳</div>
+<div id="chatbotIcon" onclick="toggleChatbot()" aria-label="Chatbot Toggle">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 119.35" width="32" height="32" fill="#ffffff">
+    <title>chatbot</title>
+    <path d="M57.49,29.2V23.53a14.41,14.41,0,0,1-2-.93A12.18,12.18,0,0,1,50.44,7.5a12.39,12.39,0,0,1,2.64-3.95A12.21,12.21,0,0,1,57,.92,12,12,0,0,1,61.66,0,12.14,12.14,0,0,1,72.88,7.5a12.14,12.14,0,0,1,0,9.27,12.08,12.08,0,0,1-2.64,3.94l-.06.06a12.74,12.74,0,0,1-2.36,1.83,11.26,11.26,0,0,1-2,.93V29.2H94.3a15.47,15.47,0,0,1,15.42,15.43v2.29H115a7.93,7.93,0,0,1,7.9,7.91V73.2A7.93,7.93,0,0,1,115,81.11h-5.25v2.07A15.48,15.48,0,0,1,94.3,98.61H55.23L31.81,118.72a2.58,2.58,0,0,1-3.65-.29,2.63,2.63,0,0,1-.63-1.85l1.25-18h-.21A15.45,15.45,0,0,1,13.16,83.18V81.11H7.91A7.93,7.93,0,0,1,0,73.2V54.83a7.93,7.93,0,0,1,7.9-7.91h5.26v-2.3A15.45,15.45,0,0,1,28.57,29.2H57.49ZM82.74,47.32a9.36,9.36,0,1,1-9.36,9.36,9.36,9.36,0,0,1,9.36-9.36Zm-42.58,0a9.36,9.36,0,1,1-9.36,9.36,9.36,9.36,0,0,1,9.36-9.36Zm6.38,31.36a2.28,2.28,0,0,1-.38-.38,2.18,2.18,0,0,1-.52-1.36,2.21,2.21,0,0,1,.46-1.39,2.4,2.4,0,0,1,.39-.39,3.22,3.22,0,0,1,3.88-.08A22.36,22.36,0,0,0,56,78.32a14.86,14.86,0,0,0,5.47,1A16.18,16.18,0,0,0,67,78.22,25.39,25.39,0,0,0,72.75,75a3.24,3.24,0,0,1,3.89.18,3,3,0,0,1,.37.41,2.22,2.22,0,0,1,.42,1.4,2.33,2.33,0,0,1-.58,1.35,2.29,2.29,0,0,1-.43.38,30.59,30.59,0,0,1-7.33,4,22.28,22.28,0,0,1-7.53,1.43A21.22,21.22,0,0,1,54,82.87a27.78,27.78,0,0,1-7.41-4.16l0,0ZM94.29,34.4H28.57A10.26,10.26,0,0,0,18.35,44.63V83.18A10.26,10.26,0,0,0,28.57,93.41h3.17a2.61,2.61,0,0,1,2.41,2.77l-1,14.58L52.45,94.15a2.56,2.56,0,0,1,1.83-.75h40a10.26,10.26,0,0,0,10.22-10.23V44.62A10.24,10.24,0,0,0,94.29,34.4Z"/>
+  </svg>
+</div>
+
 
 <!-- Chatbot Popup -->
 <div id="chatbotPopup">
@@ -757,9 +870,20 @@
   <div id="chatbotMessages"></div>
   <div class="chatbot-input">
     <input type="text" id="chatbotInput" placeholder="Type your message..." />
-    <button onclick="sendMessage()">📤</button>
-    <button onclick="startVoiceInput()">🎙️</button>
-    <button onclick="saveChat()">💾</button>
+    <button class="send-btn" onclick="sendMessage()" aria-label="Send Message">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5m-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5"/>
+      </svg>
+    </button>
+    <button class="icon-btn" onclick="startVoiceInput()" aria-label="Start Voice Input">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon-svg" viewBox="0 0 16 16">
+        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3"/>
+      </svg>
+    </button>
+
+
+
   </div>
 </div>
 
@@ -905,15 +1029,22 @@
     return data.reply;
   }
 
-  function toggleChatbot() {
+  function toggleChatbot(preserveChat = false) {
     const popup = document.getElementById('chatbotPopup');
     const messages = document.getElementById('chatbotMessages');
-    popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+    const wasClosed = popup.style.display !== 'flex';
 
-    if (popup.style.display === 'flex' && messages.childElementCount === 0) {
+    // Toggle popup
+    popup.style.display = wasClosed ? 'flex' : 'none';
+
+    // If opened and not preserving old chat, clear it
+    if (wasClosed && !preserveChat) {
+      messages.innerHTML = '';
       addBotMessage("Hi there! How can I help you today?");
     }
   }
+
+
 
   async function sendMessage() {
     const input = document.getElementById('chatbotInput');
@@ -927,11 +1058,15 @@
     try {
       const reply = await sendMessageToBot(msg);
       replaceBotLoading(reply);
+
+      // ✅ Update Previous Queries list instantly
+      loadPreviousQueries();
     } catch (err) {
       replaceBotLoading("❌ Error: Unable to get response.");
       console.error(err);
     }
   }
+
 
   function addUserMessage(text) {
     const chat = document.getElementById('chatbotMessages');
@@ -977,26 +1112,79 @@
   return text;
 }
 
-function speakText(button) {
-  const text = button.previousElementSibling.innerText;
-  const utterance = new SpeechSynthesisUtterance(text);
-  speechSynthesis.speak(utterance);
-}
+  function speakText(button) {
+    // Cancel any ongoing speech first
+    speechSynthesis.cancel();
+
+    const container = button.closest('.chat-message');
+    const responseDiv = container.querySelector('.chatbot-response-text');
+    if (!responseDiv) return;
+
+    const temp = document.createElement("div");
+    temp.innerHTML = responseDiv.innerHTML;
+    const plainText = temp.textContent || temp.innerText || "";
+
+    if (!plainText.trim()) return;
+
+    const utterance = new SpeechSynthesisUtterance(plainText);
+    utterance.rate = 1; // Normal speed
+    utterance.pitch = 1; // Normal pitch
+
+    // Disable button while speaking
+    button.disabled = true;
+
+    utterance.onend = () => {
+      button.disabled = false;
+    };
+    utterance.onerror = () => {
+      button.disabled = false;
+    };
+
+    speechSynthesis.speak(utterance);
+  }
+
+
 
 
   function replaceBotLoading(responseText) {
-  const loading = document.getElementById('loadingBubble');
-  if (loading) {
-    loading.classList.remove('loading');
-    loading.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span>${formatBotReply(responseText)}</span>
-        <button onclick="speakText(this)" class="voice-btn" title="Speak">&#128264;</button>
-      </div>
-    `;
-    loading.removeAttribute('id');
+    const loading = document.getElementById('loadingBubble');
+    if (loading) {
+      loading.classList.remove('loading');
+
+      loading.innerHTML = `
+        <div style="display: flex; flex-direction: row; gap: 8px;">
+          <div class="chatbot-response-text">${formatBotReply(responseText)}</div>
+          <div style="display: flex; flex-direction: row; justify-content: flex-end; align-items: center; gap: 8px; margin-top: 4px;">
+            
+            <button onclick="speakText(this)" class="voice-btn" title="Speak" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; font-size: 1.1rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
+                <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
+                <path d="M10.025 8a4.5 4.5 0 0 1-1.318 3.182L8 10.475A3.5 3.5 0 0 0 9.025 8c0-.966-.392-1.841-1.025-2.475l.707-.707A4.5 4.5 0 0 1 10.025 8M7 4a.5.5 0 0 0-.812-.39L3.825 5.5H1.5A.5.5 0 0 0 1 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 7 12zM4.312 6.39 6 5.04v5.92L4.312 9.61A.5.5 0 0 0 4 9.5H2v-3h2a.5.5 0 0 0 .312-.11"/>
+              </svg>
+            </button>
+
+            <button onclick="saveChatFromBot(\`${escapeQuotes(responseText)}\`)" class="icon-btn" title="Save" style="width: 28px; height: 28px;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon-svg" viewBox="0 0 16 16">
+                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+
+      loading.removeAttribute('id');
+    }
   }
-}
+
+
+
+
+  function saveChatFromBot(text) {
+    console.log("💾 Saving chat:", text);
+    alert("✅ Recipe saved!");
+    // Optional: push to saved chat array or send to backend
+  }
 
 
   function startVoiceInput() {
@@ -1055,7 +1243,103 @@ function speakText(button) {
     // document.getElementById('chatbotSendBtn').addEventListener('click', sendMessage);
 
     dragElement(document.getElementById("chatbotPopup"));
+    loadPreviousQueries();
+    console.log("✅ Chatbot initialized and ready.");
+
   });
+
+  async function loadPreviousQueries() {
+  try {
+    const res = await fetch('http://localhost:5000/api/chatbot/history');
+    const data = await res.json();
+
+    const queryList = document.getElementById('previousQueries');
+    queryList.innerHTML = '';
+
+    if (data.length === 0) {
+      queryList.innerHTML = '<li style="color: #888;">No previous queries</li>';
+      return;
+    }
+
+    data.reverse().forEach(entry => {
+      console.log("🪪 Query ID:", entry._id); 
+      const li = document.createElement('li');
+      li.style.position = 'relative';
+      li.style.cursor = 'pointer';
+      li.style.padding = '8px 12px';
+      li.style.borderBottom = '1px solid #444';
+
+      // Main text
+      const span = document.createElement('span');
+      span.textContent = entry.question;
+      span.onclick = () => {
+        toggleChatbot(true);
+        const chat = document.getElementById('chatbotMessages');
+        chat.innerHTML = '';
+        addUserMessage(entry.question);
+
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-message bot';
+        botMsg.innerHTML = formatBotReply(entry.response);
+        chat.appendChild(botMsg);
+        chat.scrollTop = chat.scrollHeight;
+      };
+
+      // Delete icon
+      const del = document.createElement('span');
+      del.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff6b6b" viewBox="0 0 16 16">
+          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+        </svg>
+      `;
+      del.className = 'query-delete';
+      li.appendChild(del);
+
+      del.onclick = async (e) => {
+        e.stopPropagation(); // Prevent triggering chatbot open
+        const confirmed = confirm("Are you sure you want to delete this query?");
+        if (!confirmed) return;
+
+        try {
+          const res = await fetch(`http://localhost:5000/api/chatbot/${entry._id}`, {
+            method: 'DELETE'
+          });
+
+          if (res.ok) {
+            // Fade out and remove from DOM
+            li.classList.add('fade-out');
+            setTimeout(() => {
+              li.remove();
+            }, 400);
+            console.log("🗑️ Deleted query:", entry._id);
+          } else {
+            console.error("❌ Failed to delete query from server.");
+          }
+        } catch (err) {
+          console.error("❌ Error deleting query:", err);
+        }
+      };
+
+
+
+
+      // Show/hide delete icon on hover
+      li.addEventListener('mouseenter', () => del.style.display = 'inline');
+      li.addEventListener('mouseleave', () => del.style.display = 'none');
+
+      li.appendChild(span);
+      li.appendChild(del);
+      queryList.appendChild(li);
+    });
+
+    console.log("✅ Previous queries loaded successfully.");
+
+  } catch (err) {
+    console.error("❌ Failed to load previous queries:", err);
+  }
+}
+
+
 
   function dragElement(elmnt) {
     const header = document.getElementById("chatbotHeader");
