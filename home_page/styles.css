@@ -832,3 +832,17 @@ body.light-theme .profile-icon:hover {
   box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
   transform: scale(1.05);
 }
+
+/* put in your main CSS file */
+.logout-btn {
+  background: none;
+  border: none;
+  color: var(--first-color-dark);   /* same accent as other icons/buttons */
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  transition: color .3s ease;
+}
+.logout-btn:hover { color: var(--first-color-darken); }

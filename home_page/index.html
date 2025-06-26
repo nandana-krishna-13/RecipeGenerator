@@ -43,6 +43,11 @@
                 <!-- <button id="loginButton" class="login-button">Login/Signup</button> -->
 <a href="profile_dashboard.html"><i class='bx bx-user-circle profile-icon' title="Profile"></i></a>
             </div>
+            <!-- Logout button -->
+<button id="logoutBtn" class="logout-btn" title="Log out">
+  <i class='bx bx-log-out-circle'></i> Logout
+</button>
+
         </nav>
     </header>
 
@@ -168,5 +173,19 @@
 
     <!--===== MAIN JS =====-->
     <script src="main.js"></script>
+
+    <script>
+  // --- simple logout handler ---
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    // 🧹 clear anything you stored after login/signup
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');       // if you save JWT later
+    // you can also clear cookies if needed
+
+    // 🚪 redirect to login page
+    window.location.href = 'login.html';
+  });
+</script>
+
 </body>
 </html>
