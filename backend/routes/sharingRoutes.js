@@ -2,16 +2,31 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/Recipe');
 
-// POST a recipe
+// // POST a recipe
+// router.post('/create', async (req, res) => {
+//   try {
+//     const recipe = new Recipe(req.body);
+//     await recipe.save();
+//     res.status(201).json({ message: 'Recipe saved successfully', recipe });
+//   } catch (err) {
+//     res.status(500).json({ error: 'Failed to save recipe' });
+//   }
+// });
+
 router.post('/create', async (req, res) => {
   try {
     const recipe = new Recipe(req.body);
-    await recipe.save();
-    res.status(201).json({ message: 'Recipe saved successfully', recipe });
+    const savedRecipe = await recipe.save();
+    res.status(201).json({
+      message: 'Recipe saved successfully',
+      recipe: savedRecipe,
+      _id: savedRecipe._id  // ✅ Important: include this field explicitly
+    });
   } catch (err) {
     res.status(500).json({ error: 'Failed to save recipe' });
   }
 });
+
 
 // GET all recipes
 router.get('/', async (req, res) => {

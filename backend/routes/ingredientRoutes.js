@@ -8,7 +8,12 @@ router.get('/:dish', async (req, res) => {
   const dishName = req.params.dish;
 
   try {
-    const prompt = `List the main ingredients required to prepare "${dishName}" as a bullet-point checklist.`;
+   const prompt = `List the main ingredients required to prepare "${dishName}" in the format:
+<number>. <Ingredient> – <Quantity>
+Example:
+1. Eggs – 2 nos  
+2. Milk – 200 ml  
+3. Sugar – 1 tbsp`;
 
     const groqRes = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',

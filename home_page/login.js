@@ -33,6 +33,9 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     if (res.ok) {
       alert('✅ Login successful!');
+        localStorage.setItem('userId', data.userId);
+      
+
       // Optional: save token to localStorage and redirect
       window.location.href = 'index.html';
     } else {

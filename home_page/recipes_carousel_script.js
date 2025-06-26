@@ -142,7 +142,25 @@ recipePreviewModal.addEventListener('click', (e) => {
   }
 });
 
-saveBtn.addEventListener('click', () => {
+// saveBtn.addEventListener('click', () => {
+//   if (currentRecipeIndex !== null) {
+//     const recipe = recipes[currentRecipeIndex];
+//     const wasSaved = recipe.saved;
+//     recipe.saved = !recipe.saved;
+//     saveBtn.classList.toggle('saved', recipe.saved);
+
+//     if (!wasSaved && recipe.saved) {
+//       const saveDialog = document.getElementById('save-dialog');
+//       saveDialog.classList.remove('hidden');
+//       if (saveDialog.timeoutId) clearTimeout(saveDialog.timeoutId);
+//       saveDialog.timeoutId = setTimeout(() => {
+//         saveDialog.classList.add('hidden');
+//       }, 2000);
+//     }
+//   }
+// });
+
+saveBtn.addEventListener('click', async () => {
   if (currentRecipeIndex !== null) {
     const recipe = recipes[currentRecipeIndex];
     const wasSaved = recipe.saved;
@@ -150,6 +168,18 @@ saveBtn.addEventListener('click', () => {
     saveBtn.classList.toggle('saved', recipe.saved);
 
     if (!wasSaved && recipe.saved) {
+      // 🔁 POST to backend
+      try {
+        await fetch('http://localhost:5000/api/interactions/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: localStorage.getItem('userId'), recipeId: recipe._id })
+        });
+      } catch (err) {
+        console.error("❌ Failed to save recipe", err);
+      }
+
+      // Show “Saved” popup
       const saveDialog = document.getElementById('save-dialog');
       saveDialog.classList.remove('hidden');
       if (saveDialog.timeoutId) clearTimeout(saveDialog.timeoutId);
@@ -159,6 +189,7 @@ saveBtn.addEventListener('click', () => {
     }
   }
 });
+
 
 const upvoteBtn = document.getElementById('upvote-btn');
 const downvoteBtn = document.getElementById('downvote-btn');
@@ -171,10 +202,44 @@ const commentInput = document.getElementById('comment-input');
 
 let currentRecipeIndex = null;
 
+// upvoteBtn.addEventListener('click', async () => {
+//   if (currentRecipeIndex !== null) {
+//     const recipe = recipes[currentRecipeIndex];
+//     const recipeId = recipe._id;
+//     const prevAction = recipe.userVote;
+
+//     let action;
+//     if (prevAction === 'upvote') {
+//       recipe.upvotes--;
+//       recipe.userVote = 'none';
+//       action = 'undo-upvote';
+//     } else {
+//       recipe.upvotes++;
+//       if (prevAction === 'downvote') recipe.downvotes--;
+//       recipe.userVote = 'upvote';
+//       action = 'upvote';
+//     }
+
+//     try {
+//       await fetch(`http://localhost:5000/api/shared/vote/${recipeId}`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ action, prevAction })
+//       });
+
+//       renderRecipes();
+//       openRecipePreview(recipe, currentRecipeIndex);
+//     } catch (err) {
+//       console.error("❌ Error upvoting", err);
+//     }
+//   }
+// });
+
 upvoteBtn.addEventListener('click', async () => {
   if (currentRecipeIndex !== null) {
     const recipe = recipes[currentRecipeIndex];
     const recipeId = recipe._id;
+    const userId = localStorage.getItem('userId');
     const prevAction = recipe.userVote;
 
     let action;
@@ -190,20 +255,29 @@ upvoteBtn.addEventListener('click', async () => {
     }
 
     try {
+      // 1. Update vote counts in recipe DB
       await fetch(`http://localhost:5000/api/shared/vote/${recipeId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, prevAction })
       });
 
+      // 2. If newly liked, track it in interactions DB
+      if (action === 'upvote') {
+        await fetch('http://localhost:5000/api/interactions/like', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId, recipeId })
+        });
+      }
+
       renderRecipes();
       openRecipePreview(recipe, currentRecipeIndex);
     } catch (err) {
-      console.error("❌ Error upvoting", err);
+      console.error("❌ Error in upvote process", err);
     }
   }
 });
-
 
 downvoteBtn.addEventListener('click', async () => {
   if (currentRecipeIndex !== null) {
@@ -288,6 +362,114 @@ commentForm.addEventListener('submit', async (e) => {
 
 
 // Handle recipe form submit and send to MongoDB
+// shareRecipeForm.addEventListener('submit', async (e) => {
+//   e.preventDefault();
+
+//   const title = document.getElementById('recipe-title').value.trim();
+//   const text = document.getElementById('recipe-text').value.trim();
+//   const name = document.getElementById('recipe-name').value.trim();
+//   const place = document.getElementById('recipe-place').value.trim();
+//   const imageInput = document.getElementById('recipe-image');
+//   const imageFile = imageInput.files[0];
+
+//   if (!title || !text || !name || !place || !imageFile) {
+//     alert('Please fill out all fields and upload an image.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+//   reader.onload = async function (e) {
+//     const image = e.target.result;
+//     const newRecipe = {
+//       title, text, name, place, image,
+//       timestamp: new Date().toLocaleString(),
+//       upvotes: 0,
+//       downvotes: 0,
+//       comments: [],
+//       userVote: 'none'
+//     };
+
+//     try {
+//         const res = await fetch('http://localhost:5000/api/shared/create', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(newRecipe)
+//       });
+
+//       if (res.ok) {
+//         await fetchRecipesFromDB();
+//         shareRecipeForm.reset();
+//         shareRecipeModal.classList.add('hidden');
+//       } else {
+//         alert('Error submitting recipe.');
+//       }
+//     } catch (err) {
+//       console.error("Error posting recipe:", err);
+//       alert('Error submitting recipe.');
+//     }
+//   };
+//   reader.readAsDataURL(imageFile);
+// });
+
+// shareRecipeForm.addEventListener('submit', async (e) => {
+//   e.preventDefault();
+
+//   const title = document.getElementById('recipe-title').value.trim();
+//   const text = document.getElementById('recipe-text').value.trim();
+//   const name = document.getElementById('recipe-name').value.trim();
+//   const place = document.getElementById('recipe-place').value.trim();
+//   const imageInput = document.getElementById('recipe-image');
+//   const imageFile = imageInput.files[0];
+//   const userId = localStorage.getItem('userId'); // 👈 Retrieve userId
+
+//   if (!title || !text || !name || !place || !imageFile) {
+//     alert('Please fill out all fields and upload an image.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+//   reader.onload = async function (e) {
+//     const image = e.target.result;
+//     const newRecipe = {
+//       title, text, name, place, image,
+//       timestamp: new Date().toLocaleString(),
+//       upvotes: 0,
+//       downvotes: 0,
+//       comments: [],
+//       userVote: 'none'
+//     };
+
+//     try {
+//       // 1. Save recipe to DB
+//       const res = await fetch('http://localhost:5000/api/shared/create', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(newRecipe)
+//       });
+
+//       const createdRecipe = await res.json();
+
+//       // 2. Register in postedRecipes of user
+//       await fetch('http://localhost:5000/api/interactions/post', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ userId, recipeId: createdRecipe._id })
+//       });
+
+//       // 3. UI updates
+//       await fetchRecipesFromDB();
+//       shareRecipeForm.reset();
+//       shareRecipeModal.classList.add('hidden');
+
+//     } catch (err) {
+//       console.error("Error posting recipe:", err);
+//       alert('Error submitting recipe.');
+//     }
+//   };
+
+//   reader.readAsDataURL(imageFile);
+// });
+
 shareRecipeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -297,6 +479,7 @@ shareRecipeForm.addEventListener('submit', async (e) => {
   const place = document.getElementById('recipe-place').value.trim();
   const imageInput = document.getElementById('recipe-image');
   const imageFile = imageInput.files[0];
+  const userId = localStorage.getItem('userId'); // 👈 Get logged-in user ID
 
   if (!title || !text || !name || !place || !imageFile) {
     alert('Please fill out all fields and upload an image.');
@@ -307,7 +490,11 @@ shareRecipeForm.addEventListener('submit', async (e) => {
   reader.onload = async function (e) {
     const image = e.target.result;
     const newRecipe = {
-      title, text, name, place, image,
+      title,
+      text,
+      name,
+      place,
+      image,
       timestamp: new Date().toLocaleString(),
       upvotes: 0,
       downvotes: 0,
@@ -316,26 +503,52 @@ shareRecipeForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        const res = await fetch('http://localhost:5000/api/shared/create', {
+      // 1. Save recipe to MongoDB
+      const res = await fetch('http://localhost:5000/api/shared/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newRecipe)
       });
 
-      if (res.ok) {
-        await fetchRecipesFromDB();
-        shareRecipeForm.reset();
-        shareRecipeModal.classList.add('hidden');
-      } else {
-        alert('Error submitting recipe.');
+      const result = await res.json();
+
+      if (!res.ok) {
+        console.error("❌ Recipe not created:", result.error || result.message);
+        alert('❌ Failed to save recipe.');
+        return;
       }
+
+      const recipeId = result._id || result.recipe?._id;
+      if (!recipeId) {
+        console.error("❌ Recipe ID not returned.");
+        return;
+      }
+
+      // 2. Log it under user's postedRecipes
+      if (userId) {
+        await fetch('http://localhost:5000/api/interactions/post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId, recipeId })
+        });
+      } else {
+        console.warn("User ID not found. Recipe won't be recorded under postedRecipes.");
+      }
+
+      // 3. Refresh UI
+      await fetchRecipesFromDB();
+      shareRecipeForm.reset();
+      shareRecipeModal.classList.add('hidden');
+
     } catch (err) {
-      console.error("Error posting recipe:", err);
-      alert('Error submitting recipe.');
+      console.error("❌ Error saving recipe:", err);
+      alert('❌ Error submitting recipe.');
     }
   };
+
   reader.readAsDataURL(imageFile);
 });
+
 
 // Fetch all recipes from MongoDB
 async function fetchRecipesFromDB() {

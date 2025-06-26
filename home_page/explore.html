@@ -159,6 +159,191 @@
     body.light-theme .logo-light {
       display: block;
     }
+
+.search-container {
+  display: flex;
+  justify-content: flex-end; /* Align to right */
+  align-items: center;
+  gap: 1rem;
+  margin-right: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+  top: 2rem;
+  right: 2rem;
+}
+
+.search-input {
+  width: 300px;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  background-color: white;
+  color: var(--first-color);
+  transition: all 0.3s ease;
+}
+
+.search-icon {
+  background-color: var(--first-color-dark);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+
+    /* .search-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+} */
+
+/* .search-icon {
+  background-color: var(--first-color-dark);
+  color: var(--first-color);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+} */
+
+.search-icon:hover {
+  background-color: var(--first-color-darken);
+}
+
+/* .search-input {
+  width: 0;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  font-size: 1rem;
+  color: var(--first-color);
+  background-color: var(--first-color-darken);
+  transition: width 0.4s ease, padding 0.3s ease;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 1;
+} */
+
+.search-input.active {
+  width: 300px;
+  opacity: 1;
+  padding: 0.6rem 1rem;
+}
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  transition: width 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+}
+
+/* ========== Light Theme Overrides ========== */
+
+body.light-theme {
+  background-color: #fff8f0;
+  color: #333333;
+}
+
+body.light-theme h1 {
+  color: #ff6f3c;
+}
+
+/* Cards */
+body.light-theme .card-front,
+body.light-theme .card-back {
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .cuisine-title {
+  color: #ff6f3c;
+}
+
+body.light-theme .cuisine-description,
+body.light-theme .dish-list {
+  color: #444;
+}
+
+body.light-theme .dish-list li {
+  color: #555;
+}
+
+/* Card hover effect */
+body.light-theme .cuisine-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 111, 54, 0.3);
+}
+
+/* Search bar */
+body.light-theme .search-input {
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+body.light-theme .search-input::placeholder {
+  color: #999;
+}
+
+body.light-theme .search-icon {
+  background-color: #ff9a56;
+  box-shadow: 0 2px 6px rgba(255, 111, 54, 0.2);
+}
+
+body.light-theme .search-icon:hover {
+  background-color: #ff6f3c;
+}
+
+/* Light-themed logo control */
+body.light-theme .logo-dark {
+  display: none;
+}
+body.light-theme .logo-light {
+  display: block;
+}
+
+/* Scrollbar */
+body.light-theme ::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.light-theme ::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 10px;
+}
+
+body.light-theme ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
   </style>
 </head>
 <body>
@@ -167,9 +352,13 @@
       <img src="logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
       <img src="logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
     </a>
+    
   </header>
   <h1>Explore Cuisines</h1>
-  <div class="cuisine-grid">
+ 
+
+
+  <!-- <div class="cuisine-grid">
     <div class="cuisine-card">
       <div class="card-inner">
         <div class="card-front">
@@ -341,7 +530,24 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <div class="search-container">
+  <input type="text" id="searchInput" class="search-input" placeholder="Search cuisines..." />
+  <button id="searchToggle" class="search-icon">
+    <svg class="search-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+      <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" fill="#000"/>
+    </svg>
+  </button>
+</div>
+  <div id="cuisineContainer" class="cuisine-grid"></div>
+  <!-- <div style="text-align:center; margin-bottom: 2rem;">
+  <input type="text" id="searchInput" placeholder="Search cuisine..." style="padding: 0.6rem; font-size: 1rem; border-radius: 5px; width: 60%;">
+  <button onclick="searchCuisine()" style="padding: 0.6rem 1rem; font-size: 1rem; margin-left: 0.5rem; border-radius: 5px;">Search</button>
+</div> -->
+
+
+
+
   <script>
     document.querySelectorAll('.cuisine-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -350,5 +556,121 @@
       });
     });
   </script>
+  <script>
+async function fetchCuisines(query = '') {
+  const res = await fetch(`http://localhost:5000/api/cuisines?q=${query}`);
+  const data = await res.json();
+  console.log("Fetched cuisines:", data); // DEBUG
+  displayCuisines(data);
+}
+
+// function displayCuisines(cuisines) {
+//   const container = document.getElementById('cuisineContainer');
+//   container.innerHTML = '';
+
+//   cuisines.forEach(c => {
+//     container.innerHTML += `
+//       <div class="cuisine-card">
+//         <div class="card-inner">
+//           <div class="card-front">
+//             <img src="${c.image}" alt="${c.name}" class="cuisine-img" />
+//             <h2 class="cuisine-title">${c.name}</h2>
+//             <p class="cuisine-description">${c.description}</p>
+//           </div>
+//           <div class="card-back">
+//             <h3>Popular Dishes</h3>
+//             <ul class="dish-list">
+//               ${c.popularDishes.map(d => `<li>${d}</li>`).join('')}
+//             </ul>
+//           </div>
+//         </div>
+//       </div>`;
+//   });
+
+//   document.querySelectorAll('.cuisine-card').forEach(card => {
+//     card.addEventListener('click', () => {
+//       const inner = card.querySelector('.card-inner');
+//       inner.classList.toggle('flipped');
+//     });
+//   });
+// }
+
+function displayCuisines(cuisines) {
+  const container = document.getElementById('cuisineContainer');
+  container.innerHTML = '';
+
+  if (!Array.isArray(cuisines) || cuisines.length === 0) {
+    container.innerHTML = `<p style="text-align:center; font-size: 1.2rem; color: #ccc;">No results found.</p>`;
+    return;
+  }
+
+  cuisines.forEach(c => {
+    container.innerHTML += `
+      <div class="cuisine-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="${c.image}" alt="${c.name}" class="cuisine-img" />
+            <h2 class="cuisine-title">${c.name}</h2>
+            <p class="cuisine-description">${c.description}</p>
+          </div>
+          <div class="card-back">
+            <h3>Popular Dishes</h3>
+            <ul class="dish-list">
+              ${c.popularDishes.map(d => `<li>${d}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  // Enable flip
+  document.querySelectorAll('.cuisine-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const inner = card.querySelector('.card-inner');
+      inner.classList.toggle('flipped');
+    });
+  });
+}
+
+
+function searchCuisine() {
+  const query = document.getElementById('searchInput').value;
+  fetchCuisines(query);
+}
+
+// Load all cuisines on page load
+window.onload = () => fetchCuisines();
+</script>
+<script>
+  const searchToggle = document.getElementById('searchToggle');
+  const searchInput = document.getElementById('searchInput');
+
+  searchToggle.addEventListener('click', () => {
+    searchInput.classList.toggle('active');
+    if (searchInput.classList.contains('active')) {
+      searchInput.focus();
+    }
+  });
+
+  // Optional: Listen to input for real-time filtering (if you have dynamic cards)
+  searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+
+  // Filter the full data array and re-render
+  fetch(`http://localhost:5000/api/cuisines?q=${query}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Filtered result:", data);
+      displayCuisines(data);  // This will show "No results found" if array is empty
+    })
+    .catch(err => {
+      console.error("Error during filtering:", err);
+    });
+});
+
+</script>
+<script src="main.js"></script>
+
+
 </body>
 </html>

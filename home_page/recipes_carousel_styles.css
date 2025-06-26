@@ -519,3 +519,143 @@ body.light-theme .logo-light {
   box-shadow: 0 0 12px 4px rgba(255, 204, 92, 1);
   cursor: pointer;
 }
+
+
+/* ========== Light Theme Styles for Recipe Sharing Page ========== */
+
+body.light-theme {
+  background-color: #fff8f0;
+  color: #333;
+}
+
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3 {
+  color: #ff6f3c;
+}
+
+/* Buttons */
+body.light-theme #share-recipe-btn,
+body.light-theme .carousel-btn,
+body.light-theme .modal-buttons button,
+body.light-theme #comment-form button {
+  background-color: #ff9a56;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 111, 54, 0.4);
+}
+
+body.light-theme #share-recipe-btn:hover,
+body.light-theme .carousel-btn:hover,
+body.light-theme .modal-buttons button:hover,
+body.light-theme #comment-form button:hover {
+  background-color: #ff6f3c;
+}
+
+/* Cards */
+body.light-theme .cuisine-card {
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+}
+
+body.light-theme .cuisine-title {
+  color: #ff6f3c;
+}
+
+body.light-theme .timestamp {
+  color: #999;
+}
+
+/* Modal */
+body.light-theme .modal-content {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 8px 16px rgba(255, 111, 54, 0.3);
+}
+
+body.light-theme .modal-content h2 {
+  color: #ff6f3c;
+}
+
+body.light-theme .modal-content input,
+body.light-theme .modal-content textarea {
+  background-color: #f9f9f9;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+body.light-theme .modal-content input:focus,
+body.light-theme .modal-content textarea:focus {
+  box-shadow: 0 0 8px rgba(255, 111, 54, 0.3);
+  border-color: #ff6f3c;
+}
+
+/* Close modal button */
+body.light-theme #close-preview-btn {
+  color: #ff6f3c;
+}
+body.light-theme #close-preview-btn:hover {
+  color: #ff9a56;
+}
+
+/* Save dialog */
+body.light-theme .save-dialog {
+  background-color: #28a745;
+}
+
+/* Comments */
+body.light-theme #comment-list {
+  background-color: #f1f1f1;
+  color: #333;
+  border-color: #ddd;
+}
+body.light-theme #comment-list li {
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+body.light-theme #comment-input {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+/* Save buttons */
+body.light-theme .save-btn svg path,
+body.light-theme #save-btn svg path {
+  stroke: #ff6f3c;
+}
+body.light-theme .save-btn.saved svg path,
+body.light-theme #save-btn.saved svg path {
+  fill: green;
+  stroke: green;
+}
+
+/* Voting */
+body.light-theme #vote-section button {
+  color: #ff6f3c;
+  stroke: #ff6f3c;
+}
+body.light-theme #vote-section button:hover {
+  color: #ff9a56;
+  stroke: #ff9a56;
+}
+body.light-theme #vote-section span {
+  color: #333;
+}
+
+/* Scrollbar for light theme */
+body.light-theme ::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+body.light-theme ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Logo switch */
+body.light-theme .logo-dark {
+  display: none;
+}
+body.light-theme .logo-light {
+  display: block;
+}

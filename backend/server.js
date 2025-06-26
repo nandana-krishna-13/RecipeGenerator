@@ -29,7 +29,9 @@ const sharingRoutes = require('./routes/sharingRoutes'); // ✅ NEW
 const chatbotRoutes = require('./routes/chatbotRoutes');
 const queryRoutes = require('./routes/queryRoutes');
 const authRoutes = require('./routes/authRoutes');
-
+const cuisineRoutes = require('./routes/cuisineRoutes');
+const interactionRoutes = require('./routes/interactionRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 
 app.use('/api/recipes', recipeRoutes);
@@ -39,6 +41,10 @@ app.use('/api/shared', sharingRoutes); // ✅ NEW
 app.use('/api/chatbot', chatbotRoutes);  // ✅ New chatbot route
 app.use('/api/queries', queryRoutes);
 app.use('/api', authRoutes);
+app.use('/api/cuisines', cuisineRoutes);
+app.use('/api/interactions', interactionRoutes);
+app.use('/api/user', userRoutes);
+
 
 
 // Start Server

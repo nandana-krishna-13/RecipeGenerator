@@ -164,6 +164,90 @@
     body.light-theme .logo-light {
       display: block;
     }
+
+    /* ===== Light Theme Overrides for Profile Page ===== */
+
+body.light-theme {
+  background-color: #fff8f0;
+  color: #333;
+}
+
+body.light-theme .container {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 111, 54, 0.2);
+  color: #333;
+}
+
+body.light-theme h1 {
+  color: #ff6f3c;
+}
+
+body.light-theme .profile-info div label {
+  color: #ff6f3c;
+}
+
+body.light-theme .profile-info div span {
+  color: #333;
+}
+
+body.light-theme .tab {
+  background-color: #ffcc5c;
+  color: #000;
+}
+
+body.light-theme .tab:hover:not(.active) {
+  background-color: #ff9a56;
+  color: white;
+}
+
+body.light-theme .tab.active {
+  background-color: #ffffff;
+  color: #ff6f3c;
+  box-shadow: 0 0 8px #ff6f3c;
+}
+
+body.light-theme .recipe-list li {
+  border-bottom: 1px solid #f2c98c;
+  color: #333;
+}
+
+body.light-theme .recipe-list li:last-child {
+  border-bottom: none;
+}
+
+body.light-theme .tab {
+  background-color: #ff9a56; /* light theme base color */
+  color: white;
+}
+
+/* Base styling (used for both themes) */
+.edit-profile-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+/* Dark theme default */
+body:not(.light-theme) .edit-profile-btn {
+  background-color: var(--first-color-darken); /* yellow */
+  color: var(--first-color);                   /* black */
+}
+
+/* Light theme override */
+body.light-theme .edit-profile-btn {
+  background-color: #ff9a56; /* orange */
+  color: white;
+}
+
+body.light-theme .edit-profile-btn:hover {
+  background-color: #ff8544;
+  box-shadow: 0 0 8px #ff6f3c;
+}
+
+
   </style>
   <div class="container">
     <h1>Profile Dashboard</h1>
@@ -183,7 +267,7 @@
     </section>
 
     <section class="profile-recipes">
-      <button id="edit-profile-btn" style="background-color: var(--first-color-darken); color: var(--first-color); border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; margin-bottom: 1rem;">Edit Profile</button>
+      <button id="edit-profile-btn" class="edit-profile-btn">Edit Profile</button>
       <div class="tabs">
         <div class="tab active" data-tab="posted">Posted Recipes</div>
         <div class="tab" data-tab="liked">Liked Recipes</div>
@@ -197,138 +281,191 @@
 
   <script>
     const tabs = document.querySelectorAll('.tab');
-    const tabContent = document.getElementById('tab-content');
+const tabContent = document.getElementById('tab-content');
 
-    const recipesData = {
-      posted: [
-        'Spaghetti Carbonara',
-        'Paneer Tikka Masala',
-        'Classic Sushi Rolls'
-      ],
-      liked: [
-        'Avocado Toast',
-        'Chicken Alfredo',
-        'Vegan Buddha Bowl'
-      ],
-      saved: [
-        'Chocolate Chip Cookies',
-        'Caesar Salad',
-        'Beef Stroganoff'
-      ]
-    };
+// This will be filled with real data after fetching
+const recipesData = {
+  posted: [],
+  liked: [],
+  saved: []
+};
 
-    function updateTabCounts() {
-      tabs.forEach(tab => {
-        const tabKey = tab.dataset.tab;
-        const count = recipesData[tabKey] ? recipesData[tabKey].length : 0;
-        const baseText = tabKey.charAt(0).toUpperCase() + tabKey.slice(1) + ' Recipes';
-        tab.textContent = `${baseText} - ${count}`;
+async function fetchUserInfo() {
+  const userId = localStorage.getItem('userId');
+  if (!userId) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/user/${userId}`);
+    const user = await res.json();
+
+    // Set user info in profile
+    document.getElementById('profile-name').textContent = user.name || 'N/A';
+    document.getElementById('profile-phone').textContent = user.phone || 'N/A';
+    document.getElementById('profile-country').textContent = user.country || 'N/A';
+  } catch (err) {
+    console.error('Error fetching user info:', err);
+  }
+}
+
+
+// Fetch user data and populate tabs
+async function fetchProfileRecipes() {
+  const userId = localStorage.getItem('userId'); // must be set at login/signup
+
+  if (!userId) {
+    tabContent.innerHTML = '<p>Please log in to view your profile.</p>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/interactions/profile/${userId}`);
+    const data = await res.json();
+
+    recipesData.posted = data.postedRecipes.map(r => r.title);
+    recipesData.liked = data.likedRecipes.map(r => r.title);
+    recipesData.saved = data.savedRecipes.map(r => r.title);
+
+    updateTabCounts();
+    renderRecipes('posted');
+  } catch (err) {
+    console.error('❌ Error fetching profile data', err);
+    tabContent.innerHTML = '<p>Failed to load recipes. Try again later.</p>';
+  }
+}
+
+function updateTabCounts() {
+  tabs.forEach(tab => {
+    const tabKey = tab.dataset.tab;
+    const count = recipesData[tabKey]?.length || 0;
+    const baseText = tabKey.charAt(0).toUpperCase() + tabKey.slice(1) + ' Recipes';
+    tab.textContent = `${baseText} - ${count}`;
+  });
+}
+
+function renderRecipes(tab) {
+  const recipes = recipesData[tab] || [];
+  if (recipes.length === 0) {
+    tabContent.innerHTML = '<p>No recipes found.</p>';
+    return;
+  }
+  const ul = document.createElement('ul');
+  ul.className = 'recipe-list';
+  recipes.forEach(recipe => {
+    const li = document.createElement('li');
+    li.textContent = recipe;
+    ul.appendChild(li);
+  });
+  tabContent.innerHTML = '';
+  tabContent.appendChild(ul);
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderRecipes(tab.dataset.tab);
+  });
+});
+
+function showStatusMessage(msg, color) {
+  let status = document.getElementById('status-message');
+  if (!status) {
+    status = document.createElement('p');
+    status.id = 'status-message';
+    status.style.marginTop = '10px';
+    status.style.fontWeight = 'bold';
+    document.getElementById('edit-profile-btn').insertAdjacentElement('afterend', status);
+  }
+  status.textContent = msg;
+  status.style.color = color;
+}
+
+
+// Edit Profile Logic
+const editBtn = document.getElementById('edit-profile-btn');
+let editing = false;
+
+editBtn.addEventListener('click', async () => {
+  const nameSpan = document.getElementById('profile-name');
+  const phoneSpan = document.getElementById('profile-phone');
+  const countrySpan = document.getElementById('profile-country');
+
+  if (!editing) {
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.id = 'profile-name-input';
+    nameInput.value = nameSpan.textContent;
+
+    const phoneInput = document.createElement('input');
+    phoneInput.type = 'text';
+    phoneInput.id = 'profile-phone-input';
+    phoneInput.value = phoneSpan.textContent;
+
+    const countryInput = document.createElement('input');
+    countryInput.type = 'text';
+    countryInput.id = 'profile-country-input';
+    countryInput.value = countrySpan.textContent;
+
+    nameSpan.replaceWith(nameInput);
+    phoneSpan.replaceWith(phoneInput);
+    countrySpan.replaceWith(countryInput);
+
+    editBtn.textContent = 'Save Profile';
+    editing = true;
+  } else {
+    const nameInput = document.getElementById('profile-name-input');
+    const phoneInput = document.getElementById('profile-phone-input');
+    const countryInput = document.getElementById('profile-country-input');
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const country = countryInput.value.trim();
+
+    const userId = localStorage.getItem('userId');
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/user/edit-profile/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, country })
       });
-    }
 
-    function renderRecipes(tab) {
-      const recipes = recipesData[tab] || [];
-      if (recipes.length === 0) {
-        tabContent.innerHTML = '<p>No recipes found.</p>';
-        return;
-      }
-      const ul = document.createElement('ul');
-      ul.className = 'recipe-list';
-      recipes.forEach(recipe => {
-        const li = document.createElement('li');
-        li.textContent = recipe;
-        ul.appendChild(li);
-      });
-      tabContent.innerHTML = '';
-      tabContent.appendChild(ul);
-    }
+      const data = await res.json();
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        renderRecipes(tab.dataset.tab);
-      });
-    });
-
-
-    // Edit profile functionality
-    const editBtn = document.getElementById('edit-profile-btn');
-    let editing = false;
-
-    editBtn.addEventListener('click', () => {
-      const nameSpan = document.getElementById('profile-name');
-      const phoneSpan = document.getElementById('profile-phone');
-      const countrySpan = document.getElementById('profile-country');
-
-      if (!editing) {
-        // Switch to edit mode
-        const nameInput = document.createElement('input');
-        nameInput.type = 'text';
-        nameInput.id = 'profile-name-input';
-        nameInput.value = nameSpan.textContent;
-        nameInput.style.fontFamily = 'var(--body-font)';
-        nameInput.style.fontSize = '1.1rem';
-        nameInput.style.padding = '4px';
-        nameInput.style.borderRadius = '4px';
-        nameInput.style.border = '1px solid var(--first-color-darken)';
-
-        const phoneInput = document.createElement('input');
-        phoneInput.type = 'text';
-        phoneInput.id = 'profile-phone-input';
-        phoneInput.value = phoneSpan.textContent;
-        phoneInput.style.fontFamily = 'var(--body-font)';
-        phoneInput.style.fontSize = '1.1rem';
-        phoneInput.style.padding = '4px';
-        phoneInput.style.borderRadius = '4px';
-        phoneInput.style.border = '1px solid var(--first-color-darken)';
-
-        const countryInput = document.createElement('input');
-        countryInput.type = 'text';
-        countryInput.id = 'profile-country-input';
-        countryInput.value = countrySpan.textContent;
-        countryInput.style.fontFamily = 'var(--body-font)';
-        countryInput.style.fontSize = '1.1rem';
-        countryInput.style.padding = '4px';
-        countryInput.style.borderRadius = '4px';
-        countryInput.style.border = '1px solid var(--first-color-darken)';
-
-        nameSpan.replaceWith(nameInput);
-        phoneSpan.replaceWith(phoneInput);
-        countrySpan.replaceWith(countryInput);
-
-        editBtn.textContent = 'Save Profile';
-        editing = true;
-      } else {
-        // Save changes
-        const nameInput = document.getElementById('profile-name-input');
-        const phoneInput = document.getElementById('profile-phone-input');
-        const countryInput = document.getElementById('profile-country-input');
-
+      if (res.ok) {
         const newNameSpan = document.createElement('span');
         newNameSpan.id = 'profile-name';
-        newNameSpan.textContent = nameInput.value;
+        newNameSpan.textContent = name;
 
         const newPhoneSpan = document.createElement('span');
         newPhoneSpan.id = 'profile-phone';
-        newPhoneSpan.textContent = phoneInput.value;
+        newPhoneSpan.textContent = phone;
 
         const newCountrySpan = document.createElement('span');
         newCountrySpan.id = 'profile-country';
-        newCountrySpan.textContent = countryInput.value;
+        newCountrySpan.textContent = country;
 
         nameInput.replaceWith(newNameSpan);
         phoneInput.replaceWith(newPhoneSpan);
         countryInput.replaceWith(newCountrySpan);
 
+        showStatusMessage('Profile updated successfully ✅', 'green');
         editBtn.textContent = 'Edit Profile';
         editing = false;
+      } else {
+        showStatusMessage(data.message || 'Update failed ❌', 'red');
       }
-    });
+    } catch (err) {
+      showStatusMessage('Server error while updating ❌', 'red');
+    }
+  }
+});
 
-    // Initial render
-    updateTabCounts();
-    renderRecipes('posted');
+// Initial Load
+fetchProfileRecipes();
+fetchUserInfo();
+
   </script>
+  <script src="main.js"></script>
 </body>
 </html>
