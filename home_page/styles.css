@@ -846,3 +846,102 @@ body.light-theme .profile-icon:hover {
   transition: color .3s ease;
 }
 .logout-btn:hover { color: var(--first-color-darken); }
+
+@media screen and (max-width: 1024px) {
+  .logout-btn {
+    font-size: 1rem; /* Adjust size for smaller screens */
+  }
+  .logout-btn i {
+    font-size: 1.25rem; /* Adjust icon size for smaller screens */
+  }
+  .theme-toggle {
+    display: none !important; /* Hide theme toggle on smaller screens */
+  }
+  .home__img {
+    width: 450px; /* Adjust image size for smaller screens */
+    height: 400px; /* Adjust height accordingly */
+  }
+  .home__container {
+    height: 1000px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .l-header,
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-fixed);
+  }
+  
+  .l-header {
+    background-color: var(--first-color);
+    padding: 0.5rem 1rem;
+  }
+  .theme-toggle {
+    display: none !important; /* Hide theme toggle on smaller screens */
+  }
+ 
+  .bd-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+  }
+  
+  .nav{
+    background-color: var(--first-color);
+  }
+
+  .nav__menu {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .nav__item {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .home__container {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+  }
+
+  .home__img {
+    display: none !important; /* Hide image on smaller screens */
+  }
+
+  .home__data {
+    text-align: center;
+  }
+  .home__title {
+    text-align: center;
+  }
+  .home__description {
+    text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+
+  .login-button, .profile-icon {
+    display: none; /* Hide login/logout buttons on mobile */
+  }
+
+  .home__container{
+    height: auto; /* Allow height to adjust based on content */
+    margin-top: auto;
+  }
+  .home__description {
+    font-size: 0.875rem; /* Smaller description for mobile */
+  }
+
+  .home__button {
+    padding: 0.75rem 1.5rem; /* Smaller button padding for mobile */
+    font-size: 0.875rem; /* Smaller button text for mobile */
+  }
+}
