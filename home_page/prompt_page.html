@@ -919,6 +919,124 @@ body.light-theme .logo-light {
   display: block;
 }
 
+/* ========== RESPONSIVE FIXES ========== */
+
+@media (max-width: 1024px) {
+  .page-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .main-container,
+  .side-container {
+    width: 100%;
+  }
+
+  .side-container {
+    max-height: none;
+    overflow: visible;
+    order: 2;
+  }
+
+  #chatbotPopup {
+    width: 90vw;
+    height: 75vh;
+    right: 5vw;
+    bottom: 80px;
+    border-radius: 12px;
+  }
+
+  #chatbotIcon {
+    width: 50px;
+    height: 50px;
+    right: 15px;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Chatbot */
+  #chatbotPopup {
+    width: 95vw;
+    height: 80vh;
+    bottom: 70px;
+    right: 2.5vw;
+  }
+
+  .chatbot-header {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  #chatbotMessages {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .chatbot-input {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 8px;
+  }
+
+  .chatbot-input input {
+    flex: 1 1 100%;
+    font-size: 0.95rem;
+  }
+
+  .send-btn,
+  .icon-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .voice-btn {
+    position: static;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  /* Ingredient Input + Add Button */
+  #promptForm > div {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  #addIngredientBtn {
+    width: 100%;
+  }
+
+  /* Recipe Cards */
+  .recipe-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .recipe-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .recipe-card-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .recipe-card-text p {
+    font-size: 0.95rem;
+  }
+
+  /* Previous Queries */
+  .side-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .side-container ul li {
+    font-size: 0.95rem;
+  }
+}
 
   </style>
 </head>
