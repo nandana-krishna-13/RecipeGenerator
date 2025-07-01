@@ -1037,6 +1037,66 @@ body.light-theme .logo-light {
     font-size: 0.95rem;
   }
 }
+/* default */
+
+/* Responsive horizontal scroll layout for small screens */
+@media (max-width: 600px) {
+  .recipe-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .recipe-cards-wrapper {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 5rem;
+  }
+
+  .recipe-card {
+    flex: 0 0 auto;
+    width: 80vw;
+    min-width: 260px;
+    max-width: 320px;
+    box-sizing: border-box;
+  }
+
+  .recipe-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .recipe-card-text {
+    text-align: left;
+  }
+
+  /* Optional: hide scrollbar for cleaner look */
+  .recipe-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  #generateBtn {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    width: 100%; /* Optional: make it full-width */
+    white-space: normal;   /* allow text to wrap */
+    word-break: break-word;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #regenerateBtn {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    width: 100%; /* Optional: make it full-width */
+    white-space: normal;   /* allow text to wrap */
+    word-break: break-word;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
 
   </style>
 </head>
@@ -1060,7 +1120,11 @@ body.light-theme .logo-light {
       </div>
 
       <div class="recipe-output show" id="recipeOutput" style="display: none;">
-        <div id="recipeCards"></div>
+        <!-- <div id="recipeCards"></div> -->
+         <div class="recipe-scroll-container">
+  <div id="recipeCards" class="recipe-cards-wrapper"></div>
+</div>
+
       </div>
 
       <div id="ingredientList" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; margin-top: 10px;"></div>
