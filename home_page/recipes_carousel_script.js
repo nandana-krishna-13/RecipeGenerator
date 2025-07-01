@@ -109,7 +109,7 @@ function openRecipePreview(recipe, index) {
   previewImage.src = recipe.image;
   previewImage.alt = recipe.title;
   previewTitle.textContent = recipe.title;
-  previewText.textContent = recipe.text;
+  previewText.innerHTML = recipe.text.replace(/\n/g, "<br>");
   previewName.textContent = recipe.name;
   previewPlace.textContent = recipe.place;
   previewTimestamp.textContent = recipe.timestamp;
