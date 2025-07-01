@@ -141,4 +141,27 @@ document.addEventListener('DOMContentLoaded', function () {
             image.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg) scale(1)';
         });
     });
+
+    // New code: intercept clicks on key buttons/links to redirect to login if not logged in
+    const userId = localStorage.getItem('userId');
+
+    // Helper function to redirect to login if not logged in
+    function redirectToLoginIfNotLoggedIn(event) {
+        if (!userId) {
+            event.preventDefault();
+            window.location.href = 'login.html';
+        }
+    }
+
+    // Buttons/links to intercept
+    const getStartedButtons = document.querySelectorAll('.get-started-button, .home__button');
+    const startPlanningButtons = document.querySelectorAll('.meal-planner-button');
+    const exploreRecipesButtons = document.querySelectorAll('.recipe-sharing-button');
+    const exploreButtons = document.querySelectorAll('.explore-button');
+
+    // Add event listeners
+    getStartedButtons.forEach(btn => btn.addEventListener('click', redirectToLoginIfNotLoggedIn));
+    startPlanningButtons.forEach(btn => btn.addEventListener('click', redirectToLoginIfNotLoggedIn));
+    exploreRecipesButtons.forEach(btn => btn.addEventListener('click', redirectToLoginIfNotLoggedIn));
+    exploreButtons.forEach(btn => btn.addEventListener('click', redirectToLoginIfNotLoggedIn));
 });
