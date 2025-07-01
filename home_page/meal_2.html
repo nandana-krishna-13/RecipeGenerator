@@ -610,7 +610,7 @@ body.light-theme #typing-text {
   <button id="get-ingredients-trigger" onclick="document.getElementById('popup-card').style.display='flex'" style="position:fixed;bottom:20px;right:20px;z-index:999;">Get Ingredients</button>
 
   <script>
-  const userId = "testuser"; // change when login system is ready
+  const userId = localStorage.getItem('userId');
 
   const dishIngredientsMap = {
     "Pancakes": ["Flour", "Eggs", "Milk"],
