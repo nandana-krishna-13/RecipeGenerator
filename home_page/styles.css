@@ -19,6 +19,10 @@
   --z-fixed: 100;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @media screen and (min-width: 768px){
   :root{
     --big-font-size: 5rem;
@@ -69,6 +73,15 @@ img{
   width: calc(100% - 2rem);
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+/* Override bd-grid margins for nav inside header to align left */
+.l-header .nav.bd-grid {
+  max-width: 100%;
+  margin-top: 0.5rem;
+  margin-left: 0 !important;
+  margin-right: 0;
+  width: 100%;
 }
 
 .l-header{
@@ -280,6 +293,9 @@ img{
 .recipe-sharing__container video {
   border-radius: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .meal-planner__container video:hover,
@@ -704,8 +720,8 @@ body.light-theme .get-started-button:hover {
   justify-content: center;
   padding: 0;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.4rem;
+  right: 4.5rem;
   z-index: var(--z-fixed);
   transition: color 0.3s ease;
 
@@ -718,8 +734,7 @@ body.light-theme .get-started-button:hover {
   cursor: pointer;
   outline: none;
   text-align: center;
-  line-height: 40px; /* Center the icon vertically */
-  font-size: 1.5rem; /* Adjust size as needed */
+  font-size: 1.9rem; /* Adjust size as needed */
   color: #000000;
   font-weight: bold;
 }
@@ -743,6 +758,9 @@ body.light-theme #theme-toggle {
 
 
 .login-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 10rem;
   display: inline-block;
   background: linear-gradient(270deg, #ffcc5c, #c2edd8, #ffcc5c);
   background-size: 600% 600%;
@@ -763,12 +781,16 @@ body.light-theme #theme-toggle {
 }
 
 .profile-icon {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  position: absolute;
+  top: 1.4rem;
+  right: 1rem;
+  z-index: var(--z-fixed);
   color: var(--first-color);
   margin-left: 12px;
   cursor: pointer;
-  transition: box-shadow 0.3s ease, color 0.3s ease;
-  vertical-align: middle;
+  box-shadow: 0 4px 15px rgba(255, 204, 92, 0.6);
+  transition: background-color 0.3s ease, transform 0.3s ease;
   padding: 4px;
   border-radius: 20px;
   background: linear-gradient(270deg, #ffcc5c, #c2edd8, #ffcc5c);
@@ -859,14 +881,8 @@ body.light-theme .profile-icon:hover {
 .logout-btn:hover { color: var(--first-color-darken); }
 
 @media screen and (max-width: 1024px) {
-  .logout-btn {
-    font-size: 1rem; /* Adjust size for smaller screens */
-  }
   .logout-btn i {
     font-size: 1.25rem; /* Adjust icon size for smaller screens */
-  }
-  .theme-toggle {
-    display: none !important; /* Hide theme toggle on smaller screens */
   }
   .home__img {
     width: 450px; /* Adjust image size for smaller screens */
@@ -891,8 +907,8 @@ body.light-theme .profile-icon:hover {
     background-color: var(--first-color);
     padding: 0.5rem 1rem;
   }
-  .theme-toggle {
-    display: none !important; /* Hide theme toggle on smaller screens */
+  .nav__list {
+    display: none !important; /* Hide nav list and theme toggle on smaller screens */
   }
  
   .bd-grid {
@@ -914,6 +930,18 @@ body.light-theme .profile-icon:hover {
   .nav__item {
     margin-left: 0;
     margin-bottom: 1rem;
+  }
+
+  .nav__logo {
+    display: block !important;
+    margin-left: 0;
+  }
+
+  .profile-icon {
+    position: static !important;
+    margin-left: 1rem;
+    top: auto !important;
+    right: auto !important;
   }
 
   .home__container {
@@ -939,8 +967,8 @@ body.light-theme .profile-icon:hover {
 
 @media screen and (max-width: 480px) {
 
-  .login-button, .logout-btn {
-    display: none; /* Hide login/logout buttons on mobile */
+  .login-button, .logout-btn, .theme-toggle {
+    display: none !important; /* Hide login/logout buttons on mobile */
   }
 
   .home__container{
@@ -954,5 +982,16 @@ body.light-theme .profile-icon:hover {
   .home__button {
     padding: 0.75rem 1.5rem; /* Smaller button padding for mobile */
     font-size: 0.875rem; /* Smaller button text for mobile */
+  }
+
+  .home__title {
+    margin-top: 1.5rem; /* Add gap above home__title on small screens */
+  }
+
+  .nav__logo img {
+    width: 100px; /* Adjust logo width for small screens */
+    min-width: 100px; /* Prevent logo from shrinking too much */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure logo does not overflow container */
   }
 }

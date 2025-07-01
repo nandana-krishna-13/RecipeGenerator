@@ -15,41 +15,28 @@
     <!--===== HEADER =====-->
     <header class="l-header">
         <nav class="nav bd-grid">
-            <div>
+            <div class="nav-left" style="flex: 1; display: flex; justify-content: flex-start;">
                 <a href="#" class="nav__logo"><img id="nav-logo" src="logo_dark.png" alt="Plateful.ai Logo" style="height: 40px;"></a>
             </div>
-
-
-
-            <div class="nav__menu" id="nav-menu">
-                <div class="nav__close" id="nav-close">
-                    <i class='bx bx-x'></i>
-                </div>
-
+            <div class="nav-center" style="flex: 1; display: flex; justify-content: center;">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
-                <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                <li class="nav__item"><a href="#meal-planner" class="nav__link">Tools</a></li>
-                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-            </ul>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#meal-planner" class="nav__link">Tools</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
             </div>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Theme">
-                <i class='bx bx-moon'></i>
-            </button>
-            <div class="nav__login">
-                <a href="login.html">
-                    <button id="loginButton" class="login-button">Login/Signup</button>
-                  </a>
-                <!-- <button id="loginButton" class="login-button">Login/Signup</button> -->
-<a href="profile_dashboard.html"><i class='bx bx-user-circle profile-icon' title="Profile"></i></a>
+            <div class="nav-right" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 1rem;">
+                <div class="nav__login">
+                    <a href="login.html">
+                        <button id="loginButton" class="login-button">Login/Signup</button>
+                    </a>
+                    <a href="profile_dashboard.html"><i class='bx bx-user-circle profile-icon' title="Profile"></i></a>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Theme">
+                    <i class='bx bx-moon'></i>
+                </button>
             </div>
-            <!-- Logout button -->
-<button id="logoutBtn" class="logout-btn" title="Log out">
-  <i class='bx bx-log-out-circle'></i> Logout
-</button>
-
-
-
         </nav>
     </header>
 
@@ -176,17 +163,6 @@
     <!--===== MAIN JS =====-->
     <script src="main.js"></script>
 
-    <script>
-  // --- simple logout handler ---
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    // 🧹 clear anything you stored after login/signup
-    localStorage.removeItem('userId');
-    localStorage.removeItem('token');       // if you save JWT later
-    // you can also clear cookies if needed
-
-    // 🚪 redirect to login page
-    window.location.href = 'login.html';
-  });
 </script>
 
 

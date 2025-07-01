@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Profile Dashboard</title>
 <style>
@@ -131,16 +132,8 @@
       text-align: center;
     }
   }
-</style>
-</head>
-<body>
-  <header>
-    <a href="index.html" class="logo-link" aria-label="Home">
-      <img id="nav-logo" src="logo_light.png" alt="Logo" class="logo" />
-    </a>
-  </header>
-  <style>
-    .logo-link {
+
+  .logo-link {
       position: absolute;
       top: 2rem;
       left: 2rem;
@@ -237,9 +230,31 @@ body.light-theme .edit-profile-btn:hover {
   background-color: #ff8544;
   box-shadow: 0 0 8px #ff6f3c;
 }
+.logout-btn {
+  background: none;
+  border: none;
+  color: var(--white-color);   /* same accent as other icons/buttons */
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  transition: color .3s ease;
+}
+.logout-btn:hover {
+  color: var(--first-color-darken); }
 
-
-  </style>
+</style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-link" aria-label="Home">
+      <img id="nav-logo" src="logo_light.png" alt="Logo" class="logo" />
+    </a>
+    <button id="logoutBtn" class="logout-btn" title="Log out" style="position: absolute; top: 1.5rem; right: 2rem;">
+      <i class='bx bx-log-out-circle'></i> Logout
+    </button>
+  </header>
   <div class="container">
     <h1>Profile Dashboard</h1>
     <section class="profile-info">
@@ -458,5 +473,15 @@ fetchUserInfo();
 
   </script>
   <script src="main.js"></script>
+  <script>
+    // Logout button handler
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Clear login state
+      localStorage.removeItem('userId');
+      localStorage.removeItem('token'); // if you save JWT later
+      // Redirect to login page
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
 </html>

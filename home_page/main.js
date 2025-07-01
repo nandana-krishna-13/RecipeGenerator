@@ -57,6 +57,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const loginButton = document.getElementById('loginButton');
+    const profileIcon = document.querySelector('.profile-icon');
+
+    const userId = localStorage.getItem('userId');
+
+    console.log('Login state check:', { userId });
+    console.log('Elements:', { loginButton, profileIcon });
+
+    if (userId) {
+        // User is logged in
+        if (loginButton) {
+            loginButton.style.display = 'none';
+            console.log('Hiding login button');
+        }
+        if (profileIcon) {
+            profileIcon.style.display = 'inline-block';
+            console.log('Showing profile icon');
+        }
+    } else {
+        // User is not logged in
+        if (loginButton) {
+            loginButton.style.display = 'inline-block';
+            console.log('Showing login button');
+        }
+        if (profileIcon) {
+            profileIcon.style.display = 'none';
+            console.log('Hiding profile icon');
+        }
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const mainButton = document.querySelector('.home__button');
     const floatingButton = document.querySelector('.get-started-button');
