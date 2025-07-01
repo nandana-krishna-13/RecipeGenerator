@@ -34,6 +34,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     if (res.ok) {
       alert('✅ Login successful!');
         localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userName', data.name); 
+      
       
 
       // Optional: save token to localStorage and redirect

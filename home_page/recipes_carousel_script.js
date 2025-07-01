@@ -335,7 +335,13 @@ commentForm.addEventListener('submit', async (e) => {
   if (currentRecipeIndex !== null) {
     const recipe = recipes[currentRecipeIndex];
     const text = commentInput.value.trim();
-    const name = document.getElementById('commenter-name').value.trim();
+    // const name = document.getElementById('commenter-name').value.trim();
+    const name = localStorage.getItem('userName');
+    if (!name) {
+      alert("⚠️ Please login to post comments.");
+      return;
+    }
+
 
     if (text && name) {
       const now = new Date();
@@ -352,7 +358,7 @@ commentForm.addEventListener('submit', async (e) => {
         recipes[currentRecipeIndex].comments = updatedComments;
         renderComments(updatedComments);
         commentInput.value = '';
-        document.getElementById('commenter-name').value = '';
+        // document.getElementById('commenter-name').value = '';
       } catch (err) {
         console.error("❌ Failed to post comment", err);
       }
