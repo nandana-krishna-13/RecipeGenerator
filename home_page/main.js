@@ -26,8 +26,36 @@ if (themeToggleButton) {
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         localStorage.setItem('theme', newTheme);
         applyTheme(newTheme);
+
+        // Update toggle icon
+        const icon = themeToggleButton.querySelector('i');
+        if (icon) {
+            if (newTheme === 'light') {
+                icon.classList.remove('bx-moon');
+                icon.classList.add('bx-sun');
+            } else {
+                icon.classList.remove('bx-sun');
+                icon.classList.add('bx-moon');
+            }
+        }
     });
 }
+
+// On initial load, update toggle icon to match theme
+document.addEventListener('DOMContentLoaded', () => {
+    if (themeToggleButton) {
+        const icon = themeToggleButton.querySelector('i');
+        if (icon) {
+            if (document.body.classList.contains('light-theme')) {
+                icon.classList.remove('bx-moon');
+                icon.classList.add('bx-sun');
+            } else {
+                icon.classList.remove('bx-sun');
+                icon.classList.add('bx-moon');
+            }
+        }
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const mainButton = document.querySelector('.home__button');

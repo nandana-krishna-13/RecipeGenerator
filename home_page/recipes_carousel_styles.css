@@ -504,15 +504,7 @@ h1 {
   height: auto;
   display: block;
 }
-.logo-light {
-  display: none;
-}
-body.light-theme .logo-dark {
-  display: none;
-}
-body.light-theme .logo-light {
-  display: block;
-}
+
 
 .profile-icon {
   transition: box-shadow 0.3s ease, color 0.3s ease;
@@ -657,10 +649,4 @@ body.light-theme ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-/* Logo switch */
-body.light-theme .logo-dark {
-  display: none;
-}
-body.light-theme .logo-light {
-  display: block;
-}
+

@@ -21,15 +21,7 @@
       width: 100%;
       display: block;
     }
-    .logo-light {
-      display: none;
-    }
-    body.light-theme .logo-dark {
-      display: none;
-    }
-    body.light-theme .logo-light {
-      display: block;
-    }
+    /* Removed logo-light and logo-dark display toggling CSS */
 
     body {
       background-color: var(--first-color);
@@ -933,8 +925,7 @@ body.light-theme .logo-light {
 <body>
   <header>
     <a href="../../home_page/index.html" class="logo-link" aria-label="Home">
-      <!-- <img src="../../home_page/logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" /> -->
-      <img src="../../home_page/logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
+      <img id="nav-logo" src="../../home_page/logo_light.png" alt="Logo" class="logo" />
     </a>
   </header>
 

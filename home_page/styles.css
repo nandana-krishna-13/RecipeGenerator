@@ -724,6 +724,17 @@ body.light-theme .get-started-button:hover {
   font-weight: bold;
 }
 
+#theme-toggle:hover {
+  background-color: #ffcc5c;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 204, 92, 0.8);
+}
+
+body.light-theme #theme-toggle:hover {
+  background-color: #ff6f3c;
+  box-shadow: 0 6px 20px rgba(255, 111, 54, 0.8);
+}
+
 /* Adjust color in light theme */
 body.light-theme #theme-toggle {
   color: #ffffff;

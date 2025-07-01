@@ -424,15 +424,7 @@ object-fit: cover;
       height: auto;
       display: block;
     }
-    .logo-light {
-      display: none;
-    }
-    body.light-theme .logo-dark {
-      display: none;
-    }
-    body.light-theme .logo-light {
-      display: block;
-    }
+    /* Removed logo-light and logo-dark display toggling CSS */
   </style>
   <style>
     .header-title {
@@ -580,8 +572,7 @@ body.light-theme #typing-text {
 <body>
   <header>
     <a href="index.html" class="logo-link" aria-label="Home">
-      <img src="logo_light.png" alt="Dark Theme Logo" class="logo logo-dark" />
-      <img src="logo_light.png" alt="Light Theme Logo" class="logo logo-light" />
+      <img id="nav-logo" src="logo_light.png" alt="Logo" class="logo" />
     </a>
     <h1 class="header-title">Weekly Meal Map</h1>
   </header>
