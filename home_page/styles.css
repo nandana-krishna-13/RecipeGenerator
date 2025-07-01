@@ -939,7 +939,7 @@ body.light-theme .profile-icon:hover {
 
 @media screen and (max-width: 480px) {
 
-  .login-button, .profile-icon {
+  .login-button, .logout-btn {
     display: none; /* Hide login/logout buttons on mobile */
   }
 
