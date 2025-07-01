@@ -86,15 +86,26 @@
       <div id="save-dialog" class="save-dialog hidden">Saved</div>
 
       <!-- Comment Section -->
-      <section id="comment-section" style="margin-top: 1.5rem;">
-        <h3>Comments</h3>
-        <ul id="comment-list" style="list-style: none; padding-left: 0; max-height: 150px; overflow-y: auto; border: 1px solid var(--first-color-darken); border-radius: 8px; padding: 0.5rem; background-color: #222;"></ul>
-        <form id="comment-form" style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
-          <input type="text" id="commenter-name" placeholder="Your name" required style="flex-basis: 30%; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--first-color-darken); background-color: var(--first-color); color: var(--white-color);">
-          <input type="text" id="comment-input" placeholder="Add a comment..." required style="flex-grow: 1; padding: 0.5rem; border-radius: 8px; border: 1px solid var(--first-color-darken); background-color: var(--first-color); color: var(--white-color);">
-          <button type="submit" style="background-color: var(--first-color-dark); color: var(--first-color); border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Post</button>
-        </form>
-      </section>
+          <section id="comment-section">
+      <h3>Comments</h3>
+      <ul id="comment-list"></ul>
+
+      <form id="comment-form">
+        <input
+          type="text"
+          id="commenter-name"
+          placeholder="Your name"
+          required
+        />
+        <input
+          type="text"
+          id="comment-input"
+          placeholder="Add a comment..."
+          required
+        />
+        <button type="submit">Post</button>
+      </form>
+    </section>
     </div>
   </div>
 
