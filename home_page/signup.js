@@ -29,3 +29,15 @@ document.getElementById('signupForm').addEventListener('submit', async function 
     alert('❌ Server error during signup');
   }
 });
+
+//confirm password validation
+document.getElementById('confirmPassword').addEventListener('input', function () {
+  const password = document.getElementById('password').value;
+  const confirmPassword = this.value;
+
+  if (password !== confirmPassword) {
+    this.setCustomValidity('Passwords do not match');
+  } else {
+    this.setCustomValidity('');
+  }
+});

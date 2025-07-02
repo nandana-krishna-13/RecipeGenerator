@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const ChatQuery = require('../models/ChatQuery');
 const ChatSession = require('../models/ChatSession');
 
-// ✅ POST /api/chatbot
+// POST /api/chatbot
 router.post('/', async (req, res) => {
   const { message, sessionId, saveToHistory } = req.body;
 

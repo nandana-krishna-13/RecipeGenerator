@@ -90,7 +90,7 @@ body {
 .login-right {
   flex: 1;
   background-color: var(--first-color);
-  margin-top: -2em;
+  margin-top: -1em;
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;

@@ -59,3 +59,5 @@ togglePassword.addEventListener('click', () => {
   togglePassword.classList.toggle('bx-show');
   togglePassword.classList.toggle('bx-hide');
 });
+
+
